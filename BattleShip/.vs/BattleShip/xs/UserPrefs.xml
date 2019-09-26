@@ -1,15 +1,24 @@
 ﻿<Properties StartupConfiguration="{4E3D2AEB-9F67-4266-B842-8285950400BD}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="BattleShip/Grid.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="BattleShip/AircraftCarrier.cs">
     <Files>
-      <File FileName="BattleShip/Program.cs" Line="10" Column="1" />
-      <File FileName="BattleShip/Grid.cs" Line="1" Column="1" />
+      <File FileName="BattleShip/Program.cs" Line="51" Column="18" />
+      <File FileName="BattleShip/Game.cs" Line="1" Column="1" />
+      <File FileName="BattleShip/Grid.cs" Line="9" Column="1" />
+      <File FileName="BattleShip/Player.cs" Line="1" Column="1" />
+      <File FileName="BattleShip/Human.cs" Line="1" Column="1" />
+      <File FileName="BattleShip/Comp.cs" Line="1" Column="1" />
+      <File FileName="BattleShip/Ship.cs" Line="1" Column="1" />
+      <File FileName="BattleShip/Destroyer.cs" Line="1" Column="1" />
+      <File FileName="BattleShip/Submarine.cs" Line="1" Column="1" />
+      <File FileName="BattleShip/Battleship.cs" Line="1" Column="1" />
+      <File FileName="BattleShip/AircraftCarrier.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="BattleShip" expanded="True">
             <Node name="BattleShip" expanded="True">
-              <Node name="Grid.cs" selected="True" />
+              <Node name="AircraftCarrier.cs" selected="True" />
             </Node>
           </Node>
         </State>
@@ -22,5 +31,5 @@
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.ItemProperties.BattleShip FirstBuild="True" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.ItemProperties.BattleShip PreferredExecutionTarget="MonoDevelop.Default" />
 </Properties>

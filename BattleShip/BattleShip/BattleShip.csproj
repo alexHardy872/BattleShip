@@ -33,6 +33,16 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Grid.cs" />
+    <Compile Include="EmptyClass.cs" />
+    <Compile Include="Game.cs" />
+    <Compile Include="Player.cs" />
+    <Compile Include="Human.cs" />
+    <Compile Include="Comp.cs" />
+    <Compile Include="Ship.cs" />
+    <Compile Include="Destroyer.cs" />
+    <Compile Include="Submarine.cs" />
+    <Compile Include="Battleship.cs" />
+    <Compile Include="AircraftCarrier.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

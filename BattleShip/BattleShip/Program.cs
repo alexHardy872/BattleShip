@@ -40,21 +40,25 @@ namespace BattleShip
             };
             
 
-            for ( int i = 0; i < stringGrid.Length; i++)
+            for ( int i = 0; i < stringGrid.GetLength(0) ; i++)
             {
-                for ( int j = 0; j < stringGrid.Length; j++)
+                for ( int j = 0; j < stringGrid.GetLength(1) ; j++)
 
                 {
-
-                    Console.Write(stringGrid[i, j]);
+                    string spot = stringGrid[i, j];
+                    Console.Write(spot);
 
                 }
-
+                Console.WriteLine();
             }
             
 
            
             Console.ReadLine();
+
+
+            Game newGame = new Game();
+            newGame.MasterGameFunction();
 
 
 
