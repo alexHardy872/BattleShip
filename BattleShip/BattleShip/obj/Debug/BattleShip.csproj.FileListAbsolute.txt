@@ -1,0 +1,5 @@
+/Users/whardy1/Desktop/DevCodeCamp/ExtraCred/BattleShip/BattleShip/BattleShip/obj/Debug/BattleShip.csprojAssemblyReference.cache
+/Users/whardy1/Desktop/DevCodeCamp/ExtraCred/BattleShip/BattleShip/BattleShip/bin/Debug/BattleShip.exe
+/Users/whardy1/Desktop/DevCodeCamp/ExtraCred/BattleShip/BattleShip/BattleShip/bin/Debug/BattleShip.pdb
+/Users/whardy1/Desktop/DevCodeCamp/ExtraCred/BattleShip/BattleShip/BattleShip/obj/Debug/BattleShip.exe
+/Users/whardy1/Desktop/DevCodeCamp/ExtraCred/BattleShip/BattleShip/BattleShip/obj/Debug/BattleShip.pdb

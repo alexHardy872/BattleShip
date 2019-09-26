@@ -3,8 +3,16 @@ namespace BattleShip
 {
     public class Grid
     {
+
+
+
+
         public Grid()
         {
         }
+
+
+
+
     }
 }
