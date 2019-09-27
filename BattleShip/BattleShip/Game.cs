@@ -1,17 +1,26 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading;
+
 namespace BattleShip
 {
     public class Game
     {
         //MEMBER VAR
-        Player playerOne;
-        Player playerTwo;
+        public Player playerOne;
+        public Player playerTwo;
+        public string gameStyle;
+        public bool p1Turn;
+        public bool playAgain;
 
 
 
         //CONSTRUCTOR
         public Game()
         {
+            p1Turn = true;
         }
 
 
@@ -20,9 +29,49 @@ namespace BattleShip
 
         public void MasterGameFunction()
         {
-            WelcomeToBattleShip();
-            DisplayRules();
+            do
+            {
 
+                WelcomeToBattleShip();
+                //DisplayRules();  // NO RULES YET NOT SURE HOW TO INCORPERATE
+
+                ChooseGameStyle(); // VALIDATE
+
+                CreatePlayers(); // VALIDATE
+
+                BuildPlayerGrids();
+
+                SelectShips();
+
+                // P1 set ships
+
+                // p2 set ships (if computer no show?)
+
+
+
+
+                while (playerOne.score < 5 && playerTwo.score < 5)
+                {
+                    if (p1Turn == true) // P1 turn
+                    {
+
+
+
+
+                        ToggleTurn();
+                    }
+                    else
+                    {
+
+
+
+                        ToggleTurn();
+                    }
+                }
+                // check win
+
+            }
+            while (playAgain == true);
 
         }
 
@@ -42,13 +91,72 @@ namespace BattleShip
             Console.Clear();
             Console.WriteLine("The rule are simple you stupid idiot");
             Console.ReadLine();
+            Console.WriteLine("The rule are simple you stupid idiot");
+            Console.ReadLine();
+            Console.WriteLine("The rule are simple you stupid idiot");
+            Console.ReadLine();
+
         }
 
         // Play against a human or computer or sim?
 
-        // build your grids
+        public void ChooseGameStyle()
+        {
+            Console.WriteLine("Do you want to play against 'comp' , 'player' , or watch 'sim'?");
+            gameStyle = Console.ReadLine();
 
+        }
+
+        public void CreatePlayers()
+        {
+            switch (gameStyle)
+            {
+                case "player":
+                    playerOne = new Human("Player 1");
+                    playerTwo = new Human("Player 2");
+                    break;
+                case "comp":
+                    playerOne = new Human("Player 1");
+                    playerTwo = new Comp("Computer");
+                    break;
+                case "sim":
+                    playerOne = new Comp("Computer 1");
+                    playerTwo = new Comp("Computer 2");
+                    break;
+            }
+
+        }
+        // TOGGLE TURN
+
+        public void ToggleTurn()
+        {
+            p1Turn = !p1Turn;
+        }
+
+
+        // build your grids
         // Lay down your ships // Keep in bounds
+
+
+        public void SelectShips()
+        {
+
+            playerOne.PositionShips();
+
+            playerTwo.PositionShips();
+        }
+
+        public void BuildPlayerGrids()
+        {
+            playerOne.CreateBoard();
+            playerOne.CreateBoard();
+
+            playerTwo.CreateBoard();
+            playerTwo.CreateBoard();
+        }
+
+
+        //Each Turn display board
 
         // ask to guess coordinates to fire
 
