@@ -10,7 +10,16 @@ namespace BattleShip
     {
 
         public List<string> directions;
+        public bool lastMoveHit;
+        public int lastRow;
+        public int lastCol;
+
+
+
+
+
         public Comp(string nameIn)
+       
         {
             name = nameIn;
             score = 0;
@@ -39,8 +48,18 @@ namespace BattleShip
                                  
                     playerShipGrid.BuildGrid();
 
-                    int row = GetRandomNum(19);
-                    int col = GetRandomNum(19);
+                    int row;
+                    int col;
+
+                    do
+                    {
+                        row = GetRandomNum(20);
+                        col = GetRandomNum(20);
+
+                    }
+                    while (playerShipGrid.stringGrid[row, col] != "[ ]");
+
+                     
 
                     bool successfulPlacement;
 
@@ -216,9 +235,9 @@ namespace BattleShip
             do
             {
 
-                row = GetRandomNum(19);
+                row = GetRandomNum(20);
 
-                col = GetRandomNum(19);
+                col = GetRandomNum(20);
               
             }
             while (row > 20 || col > 20 || row < 0 || col < 0 || playerHitGrid.stringGrid[row, col] != "[ ]");

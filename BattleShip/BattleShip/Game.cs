@@ -54,6 +54,8 @@ namespace BattleShip
                 {
                     if (p1Turn == true) // P1 turn
                     {
+                        Console.WriteLine(playerOne.name + "'s turn");
+                        playerOne.playerShipGrid.BuildGrid();
                         Tuple<int,int> attack = playerOne.SendAttackCords();
                         bool wasHit = playerTwo.RecieveAttack(attack);
                         playerOne.UpdateHitMap(wasHit, attack);
@@ -67,10 +69,12 @@ namespace BattleShip
                     }
                     else
                     {
+                        Console.WriteLine(playerTwo.name + "'s turn");
                         // random select strike (smart regroup if hit
+                        playerTwo.playerShipGrid.BuildGrid();
                         Tuple<int,int> attack = playerTwo.SendAttackCords();
                         bool wasHit = playerOne.RecieveAttack(attack);
-                        playerOne.UpdateHitMap(wasHit, attack);
+                        playerTwo.UpdateHitMap(wasHit, attack);
 
                         ToggleTurn();
                     }
