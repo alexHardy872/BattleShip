@@ -50,19 +50,22 @@ namespace BattleShip
 
 
 
-                while (playerOne.score < 5 && playerTwo.score < 5)
+                while (playerOne.score < 4 && playerTwo.score < 4)
                 {
                     if (p1Turn == true) // P1 turn
                     {
 
-
+                        // select stike
+                        // determine if hit or not
+                        // show strikes
+                        //update opponements board to show strikes
 
 
                         ToggleTurn();
                     }
                     else
                     {
-
+                        // random select strike (smart regroup if hit
 
 
                         ToggleTurn();
@@ -140,9 +143,10 @@ namespace BattleShip
 
         public void SelectShips()
         {
-
+            Console.Write(playerOne.name);
             playerOne.PositionShips();
 
+            Console.Write(playerTwo.name);
             playerTwo.PositionShips();
         }
 

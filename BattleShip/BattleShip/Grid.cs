@@ -39,9 +39,46 @@ namespace BattleShip
 
         public void BuildGrid()
 
+            {    // MARKERS
+
+            Console.WriteLine();
+                for (int i = 0; i < stringGrid.GetLength(0)+1; i++)
             {
+                if ( i < 10)
+                {
+                     if (i == 0)
+                    {
+                        Console.Write("   ");
+                    }
+                     else
+                    {
+                        Console.Write(" " + i + " ");
+                    }
+                    
+                }
+              
+                else
+                {
+                    Console.Write(i+" ");
+                }
+                
+            }
+            Console.WriteLine();
+
+
+
                 for (int i = 0; i < stringGrid.GetLength(0); i++)
                 {
+
+                if (i >= 9 )
+                {
+                    Console.Write((i+1) + " ");
+                }
+                else
+                {
+                    Console.Write(" " +(i+1) +" ");
+                }
+               
                     for (int j = 0; j < stringGrid.GetLength(1); j++)
                     {                      
                         string spot = stringGrid[i, j];
