@@ -12,6 +12,7 @@ namespace BattleShip
         public int size;
         public string name;
         public bool isSunk;
+        public string key;
 
 
 

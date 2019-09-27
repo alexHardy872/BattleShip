@@ -12,6 +12,7 @@ namespace BattleShip
         {
             size = 5;
             name = "Aircraft Carrier";
+            key = "[A]";
         }
     }
 }

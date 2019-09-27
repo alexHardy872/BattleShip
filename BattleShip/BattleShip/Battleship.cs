@@ -12,6 +12,7 @@ namespace BattleShip
         {
             size = 4;
             name = "Battle Ship";
+            key = "[B]";
         }
     }
 }

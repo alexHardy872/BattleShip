@@ -153,29 +153,113 @@ namespace BattleShip
             switch (direction)
             {
                 case "down":
-                    if (col + ship.size >= playerHitGrid.stringGrid.GetLength(0))
+                    if (row + ship.size >= playerShipGrid.stringGrid.GetLength(0))
                     {
                         Console.WriteLine("Not enough room to fit this" + ship.name + " " + ship.size + " spaces " + direction + " of (" + row + ", " + col);
                         return false;
                     }
                     else
                     {
-                        playerShipGrid.stringGrid[row, col] = "[0]";
+                        playerShipGrid.stringGrid[row, col] = ship.key;
 
-                        for (int i = 1; i < ship.size + 1; i++)
+                        for (int i = 1; i < ship.size; i++)
                         {
+                            if (playerShipGrid.stringGrid[row + i, col] != "[ ]")
+                            {
+                                Console.WriteLine("Not enough room to fit this" + ship.name + " " + ship.size + " spaces " + direction + " of (" + row + ", " + col);
+                                return false;
+                            }
+                            else
+                            {
+                                playerShipGrid.stringGrid[row + i, col] = ship.key;
 
-                            playerShipGrid.stringGrid[row + i, col] = "[0]";
+                            }
+                        
                         }
 
-                        return true;
                     }
+                    break;
 
                 case "up":
+                    if (row - ship.size < 0)
+                    {
+                        Console.WriteLine("Not enough room to fit this" + ship.name + " " + ship.size + " spaces " + direction + " of (" + row + ", " + col);
+                        return false;
+                    }
+                    else
+                    {
+                        playerShipGrid.stringGrid[row, col] = ship.key;
+
+                        for (int i = 1; i < ship.size; i++)
+                        {
+                            if (playerShipGrid.stringGrid[row - i, col] != "[ ]")
+                            {
+                                Console.WriteLine("Not enough room to fit this" + ship.name + " " + ship.size + " spaces " + direction + " of (" + row + ", " + col);
+                                return false;
+                            }
+                            else
+                            {
+                                playerShipGrid.stringGrid[row - i, col] = ship.key;
+
+                            }
+
+                        }
+
+                    }
                     break;
                 case "right":
+                    if (col + ship.size >= playerShipGrid.stringGrid.GetLength(1))
+                    {
+                        Console.WriteLine("Not enough room to fit this" + ship.name + " " + ship.size + " spaces " + direction + " of (" + row + ", " + col);
+                        return false;
+                    }
+                    else
+                    {
+                        playerShipGrid.stringGrid[row, col] = ship.key;
+
+                        for (int i = 1; i < ship.size ; i++)
+                        {
+                            if (playerShipGrid.stringGrid[row, col+i] != "[ ]")
+                            {
+                                Console.WriteLine("Not enough room to fit this" + ship.name + " " + ship.size + " spaces " + direction + " of (" + row + ", " + col);
+                                return false;
+                            }
+                            else
+                            {
+                                playerShipGrid.stringGrid[row, col+i] = ship.key;
+
+                            }
+
+                        }
+
+                    }
                     break;
                 case "left":
+                    if (col - ship.size < 0)
+                    {
+                        Console.WriteLine("Not enough room to fit this" + ship.name + " " + ship.size + " spaces " + direction + " of (" + row + ", " + col);
+                        return false;
+                    }
+                    else
+                    {
+                        playerShipGrid.stringGrid[row, col] = ship.key;
+
+                        for (int i = 1; i < ship.size ; i++)
+                        {
+                            if (playerShipGrid.stringGrid[row, col - i] != "[ ]")
+                            {
+                                Console.WriteLine("Not enough room to fit this" + ship.name + " " + ship.size + " spaces " + direction + " of (" + row + ", " + col);
+                                return false;
+                            }
+                            else
+                            {
+                                playerShipGrid.stringGrid[row, col - i] = ship.key;
+
+                            }
+
+                        }
+
+                    }
                     break;
             }
 
