@@ -268,6 +268,93 @@ namespace BattleShip
             return true;
         }
 
-       
+
+
+
+        public override Tuple<int,int> SendAttackCords()
+        {
+            // DISPLAY HIT BOARD
+            // SELECT COORINATES TO ATTACK
+
+            // PLACE EITHER 'X' OR 'o'
+
+            // update opponenets main grid with X or o
+
+            Console.WriteLine(name + ", its time to attack! Here are your current strikes");
+            playerHitGrid.BuildGrid();
+
+            int row;
+            int col;
+
+            do
+            {
+         
+                Console.WriteLine("Enter the row"); /// maybe use letters and number system to input D17 type deal. also validation?
+                row = (Int32.Parse(Console.ReadLine()) - 1);
+                Console.WriteLine("Enter the collum");
+                col = (Int32.Parse(Console.ReadLine()) - 1);
+
+
+                if (row > 20 || col > 20 || row < 0 || col < 0 || playerHitGrid.stringGrid[row, col] != "[ ]")
+                {
+                    Console.WriteLine("This space is already taken or does not exist!");
+                }
+            }
+            while (row > 20 || col > 20 || row < 0 || col < 0 || playerHitGrid.stringGrid[row, col] != "[ ]");
+
+            if (playerHitGrid.stringGrid[row,col] == "[o]" || playerHitGrid.stringGrid[row, col] == "[X]")
+            {
+                Console.WriteLine("You have already tried this space!");
+                return SendAttackCords();
+            }
+
+            return Tuple.Create(row, col);
+
+        }
+
+
+        public override bool RecieveAttack(Tuple<int,int> attack)
+        {
+            int row = attack.Item1;
+            int col = attack.Item2;
+
+            if (playerShipGrid.stringGrid[row,col] == "[ ]")
+            {
+                playerShipGrid.stringGrid[row, col] = "[o]";
+                return false;
+            }
+            else
+            {
+                Console.WriteLine(name + ", was HIT!");
+                playerShipGrid.stringGrid[row, col] = "[X]";
+                return true;
+            }
+
+
+        }
+
+        public override void UpdateHitMap(bool didHit, Tuple<int,int> Cords)
+        {
+            int row = Cords.Item1;
+            int col = Cords.Item2;
+
+            if (didHit == true)
+            {
+                playerHitGrid.stringGrid[row, col] = "[X]";
+                Console.WriteLine("HIT!");
+            }
+            else
+            {
+                playerHitGrid.stringGrid[row, col] = "[o]";
+                Console.WriteLine("MISS!");
+            }
+
+            playerHitGrid.BuildGrid();
+        }
+
+
+
+
+
     }
 }

@@ -54,7 +54,9 @@ namespace BattleShip
                 {
                     if (p1Turn == true) // P1 turn
                     {
-
+                        Tuple<int,int> attack = playerOne.SendAttackCords();
+                        bool wasHit = playerTwo.RecieveAttack(attack);
+                        playerOne.UpdateHitMap(wasHit, attack);
                         // select stike
                         // determine if hit or not
                         // show strikes
@@ -66,7 +68,9 @@ namespace BattleShip
                     else
                     {
                         // random select strike (smart regroup if hit
-
+                        Tuple<int,int> attack = playerTwo.SendAttackCords();
+                        bool wasHit = playerOne.RecieveAttack(attack);
+                        playerOne.UpdateHitMap(wasHit, attack);
 
                         ToggleTurn();
                     }
