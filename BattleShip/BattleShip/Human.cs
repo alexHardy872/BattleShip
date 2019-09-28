@@ -35,64 +35,53 @@ namespace BattleShip
 
 
 
-
-        // DIsplay grid
-
-        // set ship1
-
-        // display grid
-
-        // set ship 2
-
-        // display grid
-
-            // set ship 3
-
-            // display grid
-
-
         public override void PositionShips()
         {
 
 
-
-
             while (allShipsSet == false)
             {
-             
-
                 
                 foreach (Ship ship in listShips)
                 {
                     int row;
                     int col;
 
-
                     Console.WriteLine("Here is your Current Board");
                     playerShipGrid.BuildGrid();
 
-                    do
-                    {
-                        Console.WriteLine("Enter Coordinates for an open position to place your " + ship.name);
-                        Console.WriteLine("( a " + ship.name + " takes up " + ship.size + " spaces)");
 
-                        // is space open? (!= = "[ ]"
-
-                        Console.WriteLine("Enter the row"); /// maybe use letters and number system to input D17 type deal. also validation?
-                        row = (Int32.Parse(Console.ReadLine())-1);
-                        Console.WriteLine("Enter the collum");
-                        col = (Int32.Parse(Console.ReadLine())-1);
-
-
-                        if (row > 20 || col > 20 || row < 0 || col < 0 || playerShipGrid.stringGrid[row, col] != "[ ]")
+                    bool redoCoords;
+                        do
                         {
-                            Console.WriteLine("This space is already taken or does not exist!");
+                            Console.WriteLine("Enter Coordinates for an open position to place your " + ship.name);
+                            Console.WriteLine("( a " + ship.name + " takes up " + ship.size + " spaces)");
+
+                            Console.WriteLine("Enter the row"); /// maybe use letters and number system to input D17 type deal. also validation?
+                            row = (Int32.Parse(Console.ReadLine()) - 1);
+                            Console.WriteLine("Enter the collum");
+                            col = (Int32.Parse(Console.ReadLine()) - 1);
+
+
+                            if (row >= 20 || col >= 20 || row < 0 || col < 0)
+                            {
+                                Console.WriteLine("This space does not exist!");
+                            redoCoords = true;
+                                
+                            }
+                            else if(playerShipGrid.stringGrid[row, col] != "[ ]")
+                            {
+                                Console.WriteLine("This space is already taken");
+                                redoCoords = true;
+                            }
+                            else
+                            {
+                                redoCoords = false;
+                            }
                         }
-                    }
-                    while ( row > 20 || col > 20 || row < 0 || col < 0 || playerShipGrid.stringGrid[row, col] != "[ ]");
+                        while (redoCoords == true);
 
-
-
+                        
                     bool successfulPlacement;
 
 
@@ -105,21 +94,9 @@ namespace BattleShip
                     while (successfulPlacement == false);
 
 
-                  
-
-
-                    // set ship
-
-                // validation
-
-
-
-
-
-                } // end of for each iteration
+                } 
 
                 playerShipGrid.BuildGrid();
-                
 
                 allShipsSet = true;
 
@@ -134,16 +111,18 @@ namespace BattleShip
             string direction;
             do
             {
-                Console.WriteLine("Starting from point (" + (row+1)+ ", " + (col+1) + ") In what direction would you like to extend your ship? (Type 'right', 'left', 'up' or 'down')");
+                Console.WriteLine("Starting from point (" + (row+1)+ ", " + (col+1) + ") In what direction would you like to extend your ship? (Type 'right', 'left', 'up' or 'down') or 'back' to try new coordinates");
                 direction = Console.ReadLine();
 
                 if (direction != "up" && direction != "down" && direction != "right" && direction != "left")
                 {
+      
+                    
                     Console.WriteLine("Not a valid direction! Try again!");
                 }
 
             }
-            while (direction != "up" && direction != "down" && direction != "right" && direction != "left");
+            while (direction != "up" && direction != "down" && direction != "right" && direction != "left"&& direction != "back");
 
             return direction;
             // Now will need to validate direction and revalidate OR use it // 
@@ -155,7 +134,7 @@ namespace BattleShip
             switch (direction)
             {
                 case "down":
-                    if (row + ship.size >= playerShipGrid.stringGrid.GetLength(0))
+                    if (row + ship.size > playerShipGrid.stringGrid.GetLength(0))
                     {
                         Console.WriteLine("Not enough room to fit this" + ship.name + " " + ship.size + " spaces " + direction + " of (" + (row+1) + ", " + (col + 1));
                         return false;
@@ -183,7 +162,7 @@ namespace BattleShip
                     break;
 
                 case "up":
-                    if (row - ship.size < 0)
+                    if (row - ship.size < -1)
                     {
                         Console.WriteLine("Not enough room to fit this" + ship.name + " " + ship.size + " spaces " + direction + " of (" + (row + 1) + ", " + (col + 1));
                         return false;
@@ -210,7 +189,7 @@ namespace BattleShip
                     }
                     break;
                 case "right":
-                    if (col + ship.size >= playerShipGrid.stringGrid.GetLength(1))
+                    if (col + ship.size > playerShipGrid.stringGrid.GetLength(1))
                     {
                         Console.WriteLine("Not enough room to fit this" + ship.name + " " + ship.size + " spaces " + direction + " of (" + (row + 1) + ", " + (col + 1));
                         return false;
@@ -237,7 +216,7 @@ namespace BattleShip
                     }
                     break;
                 case "left":
-                    if (col - ship.size < 0)
+                    if (col - ship.size < -1)
                     {
                         Console.WriteLine("Not enough room to fit this" + ship.name + " " + ship.size + " spaces " + direction + " of (" + (row + 1) + ", " + (col + 1));
                         return false;

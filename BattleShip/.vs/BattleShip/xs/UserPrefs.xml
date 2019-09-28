@@ -1,12 +1,12 @@
 ﻿<Properties StartupConfiguration="{4E3D2AEB-9F67-4266-B842-8285950400BD}|Default">
   <MonoDevelop.Ide.Workbench ActiveDocument="BattleShip/Comp.cs">
     <Files>
-      <File FileName="BattleShip/Program.cs" Line="11" Column="13" />
+      <File FileName="BattleShip/Program.cs" Line="27" Column="1" />
       <File FileName="BattleShip/Game.cs" />
       <File FileName="BattleShip/Grid.cs" />
       <File FileName="BattleShip/Player.cs" />
       <File FileName="BattleShip/Human.cs" />
-      <File FileName="BattleShip/Comp.cs" Line="13" Column="1" />
+      <File FileName="BattleShip/Comp.cs" Line="232" Column="21" />
       <File FileName="BattleShip/Ship.cs" />
       <File FileName="BattleShip/Destroyer.cs" />
       <File FileName="BattleShip/Submarine.cs" />
