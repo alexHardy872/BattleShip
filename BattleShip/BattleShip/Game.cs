@@ -33,7 +33,6 @@ namespace BattleShip
             {
 
                 WelcomeToBattleShip();
-                //DisplayRules();  // NO RULES YET NOT SURE HOW TO INCORPERATE
 
                 ChooseGameStyle(); // VALIDATE
 
@@ -43,43 +42,57 @@ namespace BattleShip
 
                 SelectShips();
 
-                // P1 set ships
-
-                // p2 set ships (if computer no show?)
 
 
 
 
-                while (playerOne.score < 4 && playerTwo.score < 4)
+
+                while (playerOne.lives > 0 && playerTwo.lives > 0)
                 {
                     if (p1Turn == true) // P1 turn
                     {
+
                         Console.WriteLine(playerOne.name + "'s turn");
                         playerOne.playerShipGrid.BuildGrid();
-                        Tuple<int,int> attack = playerOne.SendAttackCords();
+                        Tuple<int, int> attack = playerOne.SendAttackCords();
                         bool wasHit = playerTwo.RecieveAttack(attack);
                         playerOne.UpdateHitMap(wasHit, attack);
-                        // select stike
-                        // determine if hit or not
-                        // show strikes
-                        //update opponements board to show strikes
+
 
 
                         ToggleTurn();
+
+
+
                     }
                     else
                     {
+
                         Console.WriteLine(playerTwo.name + "'s turn");
-                        // random select strike (smart regroup if hit
                         playerTwo.playerShipGrid.BuildGrid();
-                        Tuple<int,int> attack = playerTwo.SendAttackCords();
+                        Tuple<int, int> attack = playerTwo.SendAttackCords();
                         bool wasHit = playerOne.RecieveAttack(attack);
                         playerTwo.UpdateHitMap(wasHit, attack);
 
                         ToggleTurn();
+
+
                     }
                 }
-                // check win
+
+                Player winner;
+
+                if (playerOne.lives == 0)
+                {
+                    winner = playerTwo;
+                }
+                else
+                {
+                    winner = playerOne;
+                }
+
+
+                Console.WriteLine(winner.name + " is the winner! all ships sunk!");
 
             }
             while (playAgain == true);

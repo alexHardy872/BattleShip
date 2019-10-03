@@ -15,7 +15,7 @@ namespace BattleShip
         public Human(string nameIn)
         {
             name = nameIn;
-            score = 0;
+            
         }
 
 
@@ -58,6 +58,8 @@ namespace BattleShip
                             Console.WriteLine("( a " + ship.name + " takes up " + ship.size + " spaces)");
 
                             Console.WriteLine("Enter the row"); /// maybe use letters and number system to input D17 type deal. also validation?
+
+
                             row = (Int32.Parse(Console.ReadLine()) - 1);
                             Console.WriteLine("Enter the collum");
                             col = (Int32.Parse(Console.ReadLine()) - 1);
@@ -269,6 +271,7 @@ namespace BattleShip
             {
          
                 Console.WriteLine("Enter the row"); /// maybe use letters and number system to input D17 type deal. also validation?
+
                 row = (Int32.Parse(Console.ReadLine()) - 1);
                 Console.WriteLine("Enter the collum");
                 col = (Int32.Parse(Console.ReadLine()) - 1);
@@ -281,7 +284,7 @@ namespace BattleShip
             }
             while (row > 20 || col > 20 || row < 0 || col < 0 || playerHitGrid.stringGrid[row, col] != "[ ]");
 
-            if (playerHitGrid.stringGrid[row,col] == "[o]" || playerHitGrid.stringGrid[row, col] == "[X]")
+            if (playerHitGrid.stringGrid[row,col] == "[M]" || playerHitGrid.stringGrid[row, col] == "[X]")
             {
                 Console.WriteLine("You have already tried this space!");
                 return SendAttackCords();
@@ -292,20 +295,21 @@ namespace BattleShip
         }
 
 
-        public override bool RecieveAttack(Tuple<int,int> attack)
+        public override bool RecieveAttack(Tuple<int, int> attack)
         {
             int row = attack.Item1;
             int col = attack.Item2;
 
-            if (playerShipGrid.stringGrid[row,col] == "[ ]")
+            if (playerShipGrid.stringGrid[row, col] == "[ ]")
             {
-                playerShipGrid.stringGrid[row, col] = "[o]";
+                playerShipGrid.stringGrid[row, col] = "[M]";
                 return false;
             }
             else
             {
-                Console.WriteLine(name + ", was HIT!");
+                string shipID = playerShipGrid.stringGrid[row, col];
                 playerShipGrid.stringGrid[row, col] = "[X]";
+                CheckShipSink(shipID);
                 return true;
             }
 
@@ -324,7 +328,7 @@ namespace BattleShip
             }
             else
             {
-                playerHitGrid.stringGrid[row, col] = "[o]";
+                playerHitGrid.stringGrid[row, col] = "[M]";
                 Console.WriteLine("MISS!");
             }
 
@@ -332,6 +336,59 @@ namespace BattleShip
         }
 
 
+
+
+        public override bool CheckShipSink(string input)
+        {
+
+            for (int i = 0; i < playerShipGrid.stringGrid.GetLength(0); i++)
+            {
+                for (int j = 0; j < playerShipGrid.stringGrid.GetLength(1); j++)
+                {
+                    if (playerShipGrid.stringGrid[i, j] == input)
+                    {
+                        return false;
+                    }
+
+
+                }
+            }
+
+
+            lives -= 1;
+
+            // CheckLives();
+
+            // SINK NOTIFICATION!
+            string shipName = getShipName(input);
+            Console.WriteLine("YOU SUNK " + name + "'s " + shipName + "!");
+            return true;
+        }
+
+
+        public string getShipName(string key)
+        {
+
+            switch (key)
+            {
+                case "[D]":
+                    return "Destroyer";
+                    ;
+                case "[S]":
+                    return "Submarine";
+
+                case "[B]":
+                    return "BattleShip";
+
+                case "[A]":
+                    return "Aircraft Carrier";
+                default:
+                    return "Ship";
+
+
+            }
+
+        }
 
 
 

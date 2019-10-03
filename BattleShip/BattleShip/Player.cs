@@ -15,7 +15,7 @@ namespace BattleShip
         public string name;
         public Grid playerShipGrid;
         public Grid playerHitGrid;
-        public int score;
+        public int lives;
         public Ship destroyer;
         public Ship submarine;
         public Ship battleship;
@@ -38,6 +38,7 @@ namespace BattleShip
 
             Ship[] ships = { destroyer, submarine, battleship, aircraftcarrier };
             listShips.AddRange(ships);
+            lives = ships.Length;
 
 
         }
@@ -64,6 +65,8 @@ namespace BattleShip
         public abstract bool RecieveAttack(Tuple<int,int> attack);
 
         public abstract void UpdateHitMap(bool didHit, Tuple<int,int> Cords); // SHOW hits on your hit map
+
+        public abstract bool CheckShipSink(string input);
 
         //public abstract void UpdateShipMap(); // show opponent strikes on YOUR map
 
