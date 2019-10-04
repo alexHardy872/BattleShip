@@ -143,7 +143,18 @@ namespace BattleShip
                     }
                     else
                     {
-                        
+
+                        //CHECK SHIP SIZE
+                        for (int i = 1; i < ship.size; i++)
+                        {
+
+                            if (playerShipGrid.stringGrid[row + i, col] != "[ ]")
+                            {
+                                Console.WriteLine("Not enough room to fit this" + ship.name + " " + ship.size + " spaces " + direction + " of (" + (row + 1) + ", " + (col + 1));
+                                return false;
+                            }
+                        }
+
 
                         for (int i = 1; i < ship.size; i++)
                         {
@@ -171,7 +182,16 @@ namespace BattleShip
                     }
                     else
                     {
-                        
+                        //CHECK SHIP SIZE
+                        for (int i = 1; i < ship.size; i++)
+                        {
+
+                            if (playerShipGrid.stringGrid[row - i, col] != "[ ]")
+                            {
+                                Console.WriteLine("Not enough room to fit this" + ship.name + " " + ship.size + " spaces " + direction + " of (" + (row + 1) + ", " + (col + 1));
+                                return false;
+                            }
+                        }
 
                         for (int i = 1; i < ship.size; i++)
                         {
@@ -198,7 +218,16 @@ namespace BattleShip
                     }
                     else
                     {
-                        
+                        //CHECK SHIP SIZE
+                        for (int i = 1; i < ship.size; i++)
+                        {
+
+                            if (playerShipGrid.stringGrid[row, col+i] != "[ ]")
+                            {
+                                Console.WriteLine("Not enough room to fit this" + ship.name + " " + ship.size + " spaces " + direction + " of (" + (row + 1) + ", " + (col + 1));
+                                return false;
+                            }
+                        }
 
                         for (int i = 1; i < ship.size ; i++)
                         {
@@ -225,7 +254,16 @@ namespace BattleShip
                     }
                     else
                     {
-                        
+                        //CHECK SHIP SIZE
+                        for (int i = 1; i < ship.size; i++)
+                        {
+
+                            if (playerShipGrid.stringGrid[row, col-i] != "[ ]")
+                            {
+                                Console.WriteLine("Not enough room to fit this" + ship.name + " " + ship.size + " spaces " + direction + " of (" + (row + 1) + ", " + (col + 1));
+                                return false;
+                            }
+                        }
 
                         for (int i = 1; i < ship.size ; i++)
                         {

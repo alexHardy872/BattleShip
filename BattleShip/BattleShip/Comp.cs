@@ -123,7 +123,16 @@ namespace BattleShip
                     }
                     else
                     {
-                        
+                        //CHECK SHIP SIZE
+                        for (int i = 1; i < ship.size; i++)
+                        {
+
+                            if (playerShipGrid.stringGrid[row + i, col] != "[ ]")
+                            {
+
+                                return false;
+                            }
+                        }
 
                         for (int i = 1; i < ship.size; i++)
                         {
@@ -152,7 +161,16 @@ namespace BattleShip
                     }
                     else
                     {
-                        
+                        //CHECK SHIP SIZE
+                        for (int i = 1; i < ship.size; i++)
+                        {
+
+                            if (playerShipGrid.stringGrid[row - i, col] != "[ ]")
+                            {
+
+                                return false;
+                            }
+                        }
 
                         for (int i = 1; i < ship.size; i++)
                         {
@@ -178,7 +196,16 @@ namespace BattleShip
                     }
                     else
                     {
-                       
+                        //CHECK SHIP SIZE
+                        for (int i = 1; i < ship.size; i++)
+                        {
+
+                            if (playerShipGrid.stringGrid[row, col+i] != "[ ]")
+                            {
+
+                                return false;
+                            }
+                        }
 
                         for (int i = 1; i < ship.size; i++)
                         {
@@ -205,7 +232,17 @@ namespace BattleShip
                     }
                     else
                     {
-                        
+                        //CHECK SHIP SIZE
+                        for (int i = 1; i < ship.size; i++)
+                        {
+
+                            if (playerShipGrid.stringGrid[row, col-i] != "[ ]")
+                            {
+
+                                return false;
+                            }
+                        }
+
 
                         for (int i = 1; i < ship.size; i++)
                         {
