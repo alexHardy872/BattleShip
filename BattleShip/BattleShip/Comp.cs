@@ -136,16 +136,10 @@ namespace BattleShip
 
                         for (int i = 1; i < ship.size; i++)
                         {
-                            if (playerShipGrid.stringGrid[row + i, col] != "[ ]")
-                            {
-                              
-                                return false;
-                            }
-                            else
-                            {
+                           
                                 playerShipGrid.stringGrid[row + i, col] = ship.key;
 
-                            }
+                            
 
                         }
 
@@ -174,16 +168,10 @@ namespace BattleShip
 
                         for (int i = 1; i < ship.size; i++)
                         {
-                            if (playerShipGrid.stringGrid[row - i, col] != "[ ]")
-                            {
-                                
-                                return false;
-                            }
-                            else
-                            {
+                         
                                 playerShipGrid.stringGrid[row - i, col] = ship.key;
 
-                            }
+                            
 
                         }
                         playerShipGrid.stringGrid[row, col] = ship.key;
@@ -209,16 +197,10 @@ namespace BattleShip
 
                         for (int i = 1; i < ship.size; i++)
                         {
-                            if (playerShipGrid.stringGrid[row, col + i] != "[ ]")
-                            {
-                                
-                                return false;
-                            }
-                            else
-                            {
+                       
                                 playerShipGrid.stringGrid[row, col + i] = ship.key;
 
-                            }
+                            
 
                         }
                         playerShipGrid.stringGrid[row, col] = ship.key;
@@ -246,16 +228,10 @@ namespace BattleShip
 
                         for (int i = 1; i < ship.size; i++)
                         {
-                            if (playerShipGrid.stringGrid[row, col - i] != "[ ]")
-                            {
-                                
-                                return false;
-                            }
-                            else
-                            {
+                     
                                 playerShipGrid.stringGrid[row, col - i] = ship.key;
 
-                            }
+                            
 
                         }
                         playerShipGrid.stringGrid[row, col] = ship.key;
