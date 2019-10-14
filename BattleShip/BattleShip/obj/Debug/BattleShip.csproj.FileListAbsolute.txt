@@ -3,3 +3,8 @@
 /Users/whardy1/Desktop/DevCodeCamp/ExtraCred/BattleShip/BattleShip/BattleShip/bin/Debug/BattleShip.pdb
 /Users/whardy1/Desktop/DevCodeCamp/ExtraCred/BattleShip/BattleShip/BattleShip/obj/Debug/BattleShip.exe
 /Users/whardy1/Desktop/DevCodeCamp/ExtraCred/BattleShip/BattleShip/BattleShip/obj/Debug/BattleShip.pdb
+\\Mac\Home\Desktop\DevCodeCamp\ExtraCred\BattleShip\BattleShip\BattleShip\bin\Debug\BattleShip.exe
+\\Mac\Home\Desktop\DevCodeCamp\ExtraCred\BattleShip\BattleShip\BattleShip\bin\Debug\BattleShip.pdb
+\\Mac\Home\Desktop\DevCodeCamp\ExtraCred\BattleShip\BattleShip\BattleShip\obj\Debug\BattleShip.csprojAssemblyReference.cache
+\\Mac\Home\Desktop\DevCodeCamp\ExtraCred\BattleShip\BattleShip\BattleShip\obj\Debug\BattleShip.exe
+\\Mac\Home\Desktop\DevCodeCamp\ExtraCred\BattleShip\BattleShip\BattleShip\obj\Debug\BattleShip.pdb

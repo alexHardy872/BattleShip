@@ -105,7 +105,7 @@ namespace BattleShip
 
         public int GetRandomNum(int range)
         {
-            Random random = new Random();
+            Random random = new Random(Guid.NewGuid().GetHashCode());
             int selection = random.Next(0, range);
             return selection;
         }

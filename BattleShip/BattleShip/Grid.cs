@@ -45,6 +45,7 @@ namespace BattleShip
 
             Console.WriteLine();
             Console.BackgroundColor = ConsoleColor.Gray;
+            Console.ForegroundColor = ConsoleColor.Black;
                 for (int i = 0; i < stringGrid.GetLength(0)+1; i++)
             {
                 if ( i < 10)
@@ -77,6 +78,7 @@ namespace BattleShip
                 if (i >= 9 )
                 {
                     Console.BackgroundColor = ConsoleColor.Gray;
+                    Console.ForegroundColor = ConsoleColor.Black;
                     Console.Write((i+1));
                     Console.ResetColor();
                 }
@@ -84,6 +86,7 @@ namespace BattleShip
                 else
                 {
                     Console.BackgroundColor = ConsoleColor.Gray;
+                    Console.ForegroundColor = ConsoleColor.Black;
                     Console.Write(" " +(i+1));
                     Console.ResetColor();
                 }
@@ -119,7 +122,7 @@ namespace BattleShip
                             else
                             {
                                 Console.ForegroundColor = ConsoleColor.White;
-                                Console.BackgroundColor = ConsoleColor.Blue;
+                                Console.BackgroundColor = ConsoleColor.DarkBlue;
                                 Console.Write(spot);
                                 
                             }
