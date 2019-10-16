@@ -20,8 +20,7 @@ namespace BattleShip
         {
 
             stringGrid = new string[20, 20];
-            
-             
+                
         }
 
 
@@ -48,7 +47,7 @@ namespace BattleShip
             Console.ForegroundColor = ConsoleColor.Black;
                 for (int i = 0; i < stringGrid.GetLength(0)+1; i++)
             {
-                if ( i < 10)
+                if ( i < 11)
                 {
                      if (i == 0)
                     {
@@ -56,16 +55,13 @@ namespace BattleShip
                     }
                      else
                     {
-                        Console.Write(" " + i + " ");
-                    }
-                    
-                }
-              
+                        Console.Write(" " + (i-1) + " ");
+                    }               
+                }  
                 else
                 {
-                    Console.Write(i+" ");
-                }
-                
+                    Console.Write((i-1)+" ");
+                }            
             }
             Console.ResetColor();
             Console.WriteLine();
@@ -75,11 +71,11 @@ namespace BattleShip
                 for (int i = 0; i < stringGrid.GetLength(0); i++)
                 {
 
-                if (i >= 9 )
+                if (i >= 10 )
                 {
                     Console.BackgroundColor = ConsoleColor.Gray;
                     Console.ForegroundColor = ConsoleColor.Black;
-                    Console.Write((i+1));
+                    Console.Write((i));
                     Console.ResetColor();
                 }
             
@@ -87,18 +83,14 @@ namespace BattleShip
                 {
                     Console.BackgroundColor = ConsoleColor.Gray;
                     Console.ForegroundColor = ConsoleColor.Black;
-                    Console.Write(" " +(i+1));
+                    Console.Write(" " +(i));
                     Console.ResetColor();
                 }
                
                     for (int j = 0; j < stringGrid.GetLength(1); j++)
                     {
                         Console.ResetColor();
-
-                        
-
                         string spot = stringGrid[i, j];
-
 
                         if (spot == "[X]")
                             {
@@ -115,18 +107,15 @@ namespace BattleShip
                         else if (spot == "[D]" || spot == "[S]" || spot == "[B]" || spot == "[A]")
                     {
                         Console.ForegroundColor = ConsoleColor.Gray;
-                        Console.BackgroundColor = ConsoleColor.Black; 
+                        Console.BackgroundColor = ConsoleColor.Black;
                         Console.Write(spot);
-
                     }
                             else
                             {
                                 Console.ForegroundColor = ConsoleColor.White;
                                 Console.BackgroundColor = ConsoleColor.DarkBlue;
-                                Console.Write(spot);
-                                
-                            }
-                       
+                                Console.Write(spot);                              
+                            }                  
                      }
                 Console.ResetColor();
                       Console.WriteLine();

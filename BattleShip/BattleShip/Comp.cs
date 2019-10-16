@@ -8,7 +8,7 @@ namespace BattleShip
 {
     public class Comp : Player
     {
-
+        public Random rand;
         public List<string> directions;
         public bool lastMoveHit;
         public int lastRow;
@@ -26,7 +26,7 @@ namespace BattleShip
        
         {
             name = nameIn;
-            
+            rand = new Random(Guid.NewGuid().GetHashCode());
             directions = new List<string>() { "up", "down", "right", "left" };
             
         }
@@ -34,11 +34,8 @@ namespace BattleShip
 
         public override void CreateBoard()
         {
-            // MAKE BOARDS
-
             playerShipGrid = new Grid();
             playerShipGrid.PopulateEmptyGrid();
-
             playerHitGrid = new Grid();
             playerHitGrid.PopulateEmptyGrid();
         }
@@ -49,25 +46,18 @@ namespace BattleShip
             while (allShipsSet == false)
             {
                 foreach (Ship ship in listShips)
-                {
-                                 
-                    playerShipGrid.BuildGrid();
+                {                             
+                  //  playerShipGrid.BuildGrid();
 
                     int row;
                     int col;
-
                     do
                     {
-                        row = GetRandomNum(20);
-                        col = GetRandomNum(20);
-
+                        row = GetRandomNum(0,20);
+                        col = GetRandomNum(0,20);
                     }
                     while (playerShipGrid.stringGrid[row, col] != "[ ]");
-
-                     
-
                     bool successfulPlacement;
-
                     do
                     {
                         string direction = GetRandomDirection();
@@ -75,16 +65,11 @@ namespace BattleShip
                         successfulPlacement = PlaceShip(row, col, ship, direction);
                     }
                     while (successfulPlacement == false);
-     
-
                 }
 
-                playerShipGrid.BuildGrid();
+               // playerShipGrid.BuildGrid();
                 allShipsSet = true;
-
             }
-
-
         }
 
 
@@ -96,169 +81,231 @@ namespace BattleShip
 
         public string GetRandomDirection()
         {
-            int random = GetRandomNum(3);
+            int random = GetRandomNum(0,3);
             string direction = directions[random];
             return direction;
         }
 
         
 
-        public int GetRandomNum(int range)
+        public int GetRandomNum(int min, int max)
         {
-            Random random = new Random(Guid.NewGuid().GetHashCode());
-            int selection = random.Next(0, range);
-            return selection;
+           int number =  rand.Next(min, max);
+            
+            return number;
         }
 
 
-        public bool PlaceShip(int row, int col, Ship ship, string direction) // return bool if succedful or not for validation
+        //public bool PlaceShip(int row, int col, Ship ship, string direction) // return bool if succedful or not for validation
+        //{
+        //    switch (direction)
+        //    {
+        //        case "down":
+        //            if (row + ship.size >= playerShipGrid.stringGrid.GetLength(0))
+        //            {
+
+        //                return false;
+        //            }
+        //            else
+        //            {
+        //                //CHECK SHIP SIZE
+        //                for (int i = 1; i < ship.size; i++)
+        //                {
+
+        //                    if (playerShipGrid.stringGrid[row + i, col] != "[ ]")
+        //                    {
+
+        //                        return false;
+        //                    }
+        //                }
+
+        //                for (int i = 1; i < ship.size; i++)
+        //                {                     
+        //                        playerShipGrid.stringGrid[row + i, col] = ship.key;
+        //                }
+
+        //                playerShipGrid.stringGrid[row, col] = ship.key;
+        //            }
+        //            break;
+
+        //        case "up":
+        //            if (row - ship.size < 0)
+        //            {
+
+        //                return false;
+        //            }
+        //            else
+        //            {
+        //                for (int i = 1; i < ship.size; i++)
+        //                {
+        //                    if (playerShipGrid.stringGrid[row - i, col] != "[ ]")
+        //                    {
+
+        //                        return false;
+        //                    }
+        //                }
+
+        //                for (int i = 1; i < ship.size; i++)
+        //                {                      
+        //                        playerShipGrid.stringGrid[row - i, col] = ship.key;
+
+        //                }
+        //                playerShipGrid.stringGrid[row, col] = ship.key;
+        //            }
+        //            break;
+        //        case "right":
+        //            if (col + ship.size >= playerShipGrid.stringGrid.GetLength(1))
+        //            {
+        //                return false;
+        //            }
+        //            else
+        //            {
+        //                for (int i = 1; i < ship.size; i++)
+        //                {
+        //                    if (playerShipGrid.stringGrid[row, col+i] != "[ ]")
+        //                    {
+        //                        return false;
+        //                    }
+        //                }
+
+        //                for (int i = 1; i < ship.size; i++)
+        //                {                    
+        //                        playerShipGrid.stringGrid[row, col + i] = ship.key;
+        //                }
+        //                playerShipGrid.stringGrid[row, col] = ship.key;
+        //            }
+        //            break;
+        //        case "left":
+        //            if (col - ship.size < 0)
+        //            {                
+        //                return false;
+        //            }
+        //            else
+        //            {
+        //                for (int i = 1; i < ship.size; i++)
+        //                {
+        //                    if (playerShipGrid.stringGrid[row, col-i] != "[ ]")
+        //                    {
+
+        //                        return false;
+        //                    }
+        //                }
+        //                for (int i = 1; i < ship.size; i++)
+        //                {
+
+        //                        playerShipGrid.stringGrid[row, col - i] = ship.key;
+        //                }
+        //                playerShipGrid.stringGrid[row, col] = ship.key;
+        //            }
+        //            break;
+        //    }
+        //    return true;
+        //}
+
+
+     
+
+        public bool PlaceShip(int row, int col, Ship ship, string direction)
+        {
+            bool checkBoundries = QuickCheckBounds(row, col, ship, direction) == false ? false : true;
+            if (checkBoundries == false)
+            {
+                return false;
+            }
+            else
+            {
+                for (int i = 1; i < ship.size; i++)
+                {
+                    bool checkForShips = QuickCheckEmpty(row, col, i, ship, direction) == false ? false : true;
+                    if (checkForShips == false)
+                    { 
+                        return false;
+                    }
+                }
+                for (int i = 1; i < ship.size; i++)
+                {
+                    NextPosition(row, col, i, ship, direction);
+                }
+
+                playerShipGrid.stringGrid[row, col] = ship.key;
+            }
+            return true;
+        }
+
+        public void NextPosition(int row, int col, int i, Ship ship, string direction)
         {
             switch (direction)
             {
                 case "down":
-                    if (row + ship.size >= playerShipGrid.stringGrid.GetLength(0))
-                    {
-                        
-                        return false;
-                    }
-                    else
-                    {
-                        //CHECK SHIP SIZE
-                        for (int i = 1; i < ship.size; i++)
-                        {
-
-                            if (playerShipGrid.stringGrid[row + i, col] != "[ ]")
-                            {
-
-                                return false;
-                            }
-                        }
-
-                        for (int i = 1; i < ship.size; i++)
-                        {
-                           
-                                playerShipGrid.stringGrid[row + i, col] = ship.key;
-
-                            
-
-                        }
-
-                        playerShipGrid.stringGrid[row, col] = ship.key;
-                    }
+                    playerShipGrid.stringGrid[row + i, col] = ship.key;
                     break;
-
                 case "up":
-                    if (row - ship.size < 0)
-                    {
-                        
-                        return false;
-                    }
-                    else
-                    {
-                        //CHECK SHIP SIZE
-                        for (int i = 1; i < ship.size; i++)
-                        {
-
-                            if (playerShipGrid.stringGrid[row - i, col] != "[ ]")
-                            {
-
-                                return false;
-                            }
-                        }
-
-                        for (int i = 1; i < ship.size; i++)
-                        {
-                         
-                                playerShipGrid.stringGrid[row - i, col] = ship.key;
-
-                            
-
-                        }
-                        playerShipGrid.stringGrid[row, col] = ship.key;
-                    }
+                    playerShipGrid.stringGrid[row - i, col] = ship.key;
                     break;
                 case "right":
-                    if (col + ship.size >= playerShipGrid.stringGrid.GetLength(1))
-                    {
-                        return false;
-                    }
-                    else
-                    {
-                        //CHECK SHIP SIZE
-                        for (int i = 1; i < ship.size; i++)
-                        {
-
-                            if (playerShipGrid.stringGrid[row, col+i] != "[ ]")
-                            {
-
-                                return false;
-                            }
-                        }
-
-                        for (int i = 1; i < ship.size; i++)
-                        {
-                       
-                                playerShipGrid.stringGrid[row, col + i] = ship.key;
-
-                            
-
-                        }
-                        playerShipGrid.stringGrid[row, col] = ship.key;
-                    }
+                    playerShipGrid.stringGrid[row, col + i] = ship.key;
                     break;
                 case "left":
-                    if (col - ship.size < 0)
-                    {
-                        
-                        return false;
-                    }
-                    else
-                    {
-                        //CHECK SHIP SIZE
-                        for (int i = 1; i < ship.size; i++)
-                        {
-
-                            if (playerShipGrid.stringGrid[row, col-i] != "[ ]")
-                            {
-
-                                return false;
-                            }
-                        }
-
-
-                        for (int i = 1; i < ship.size; i++)
-                        {
-                     
-                                playerShipGrid.stringGrid[row, col - i] = ship.key;
-
-                            
-
-                        }
-                        playerShipGrid.stringGrid[row, col] = ship.key;
-                    }
+                    playerShipGrid.stringGrid[row, col - i] = ship.key;
                     break;
             }
+            
+        }
 
-            return true;
+        public bool QuickCheckBounds(int row, int col, Ship ship, string direction)
+        {
+            bool success;
+            switch(direction)
+            {
+                case "down":
+                     success = row + ship.size >= playerShipGrid.stringGrid.GetLength(0) ? false : true;
+                    return success; 
+                case "up":
+                     success = row - ship.size < 0 ? false : true;
+                    return success;                 
+                case "right":
+                    success = col + ship.size >= playerShipGrid.stringGrid.GetLength(1) ? false : true;
+                    return success;               
+                case "left":
+                    success = col - ship.size < 0 ? false : true;
+                    return success;             
+            }
+            return false;
+        }
+
+        public bool QuickCheckEmpty(int row, int col, int i , Ship ship, string direction)
+        {
+            bool success;
+            switch (direction)
+            {
+                case "down":
+                    success = playerShipGrid.stringGrid[row + i, col] != "[ ]" ? false : true;
+                    return success;
+                case "up":
+                    success = playerShipGrid.stringGrid[row - i, col] != "[ ]" ? false : true;
+                    return success;
+                case "right":
+                    success =  playerShipGrid.stringGrid[row, col + i] != "[ ]" ? false : true;
+                    return success;
+                case "left":
+                    success = playerShipGrid.stringGrid[row, col - i] != "[ ]" ? false : true;
+                    return success;
+            }
+            return false;
         }
 
 
         public override Tuple<int, int> SendAttackCords()
         {
-        
-  
             int row;
             int col;
 
             do
             {
-
-                row = GetRandomNum(20);
-
-                col = GetRandomNum(20);
-              
+                row = GetRandomNum(0,20);
+                col = GetRandomNum(0,20);           
             }
-            while (row > 20 || col > 20 || row < 0 || col < 0 || playerHitGrid.stringGrid[row, col] != "[ ]");
+            while ( playerHitGrid.stringGrid[row, col] != "[ ]");
 
             if (playerHitGrid.stringGrid[row, col] == "[M]" || playerHitGrid.stringGrid[row, col] == "[X]")
             {
@@ -303,22 +350,18 @@ namespace BattleShip
 
             if (didHit == true)
             {
-
                 playerHitGrid.stringGrid[row, col] = "[X]";
                 lastHitRow = row;
                 lastHitCol = col;
-                
-
             }
             else
             {
                 playerHitGrid.stringGrid[row, col] = "[M]";
                 lastMissRow = row;
-                lastMissCol = col;
-               
+                lastMissCol = col;         
             }
 
-            playerHitGrid.BuildGrid();
+            //playerHitGrid.BuildGrid();
         }
 
 
@@ -341,9 +384,7 @@ namespace BattleShip
 
             lives -= 1;
 
-            // CheckLives();
-
-            // SINK NOTIFICATION!
+           
             string shipName = getShipName(input);
             Console.Write("YOU SUNK " + name + "'s " + shipName+"!");
                 return true;    

@@ -14,6 +14,7 @@ namespace BattleShip
         public string gameStyle;
         public bool p1Turn;
         public bool playAgain;
+     
 
 
 
@@ -21,6 +22,7 @@ namespace BattleShip
         public Game()
         {
             p1Turn = true;
+            
         }
 
 
@@ -31,105 +33,65 @@ namespace BattleShip
         {
             do
             {
-
-                WelcomeToBattleShip();
-
-                ChooseGameStyle(); // VALIDATE
-
-                CreatePlayers(); // VALIDATE
-
+                UI.WelcomeToBattleShip();
+                gameStyle = UI.ChooseGameStyle(); 
+                CreatePlayers(); 
                 BuildPlayerGrids();
-
                 SelectShips();
+                PlayGame();   
+                Player winner = playerOne.lives == 0 ? playerTwo : playerOne;         
+                Console.WriteLine(winner.name + " is the winner! all ships sunk!");
+            }
+            while (playAgain == true);
+        }
 
-
-
-
-
-
-                while (playerOne.lives > 0 && playerTwo.lives > 0)
+        public void PlayGame()
+        {
+            while (playerOne.lives > 0 && playerTwo.lives > 0)
+            {
+                if (p1Turn == true) // P1 turn
                 {
-                    if (p1Turn == true) // P1 turn
-                    {
-
-                        Console.WriteLine(playerOne.name + "'s turn");
-                        playerOne.playerShipGrid.BuildGrid();
-                        Tuple<int, int> attack = playerOne.SendAttackCords();
-                        bool wasHit = playerTwo.RecieveAttack(attack);
-                        playerOne.UpdateHitMap(wasHit, attack);
-
-
-
-                        ToggleTurn();
-
-
-
-                    }
-                    else
-                    {
-
-                        Console.WriteLine(playerTwo.name + "'s turn");
-                        playerTwo.playerShipGrid.BuildGrid();
-                        Tuple<int, int> attack = playerTwo.SendAttackCords();
-                        bool wasHit = playerOne.RecieveAttack(attack);
-                        playerTwo.UpdateHitMap(wasHit, attack);
-
-                        ToggleTurn();
-
-
-                    }
-                }
-
-                Player winner;
-
-                if (playerOne.lives == 0)
-                {
-                    winner = playerTwo;
+                    PlayerTurn(playerOne, playerTwo);
+                    ToggleTurn();
                 }
                 else
                 {
-                    winner = playerOne;
+                    if (gameStyle == "comp")
+                    {
+                        ComputerTurn(playerTwo, playerOne);
+                    }
+                    else
+                    {
+                        PlayerTurn(playerTwo, playerOne);
+                    }
+                    ToggleTurn();
                 }
-
-
-                Console.WriteLine(winner.name + " is the winner! all ships sunk!");
-
             }
-            while (playAgain == true);
-
         }
 
-
-        // Welcome, game discription sequence ect
-
-        public void WelcomeToBattleShip()
+        public void PlayerTurn(Player current, Player other)
         {
-            Console.WriteLine("WELCOME TO SEASHARP BATTLESHIP!");
-            Console.WriteLine();
-            Console.WriteLine("Press 'ENTER' to start");
-            Console.ReadLine();
-        }
-
-        public void DisplayRules()
-        {
-            Console.Clear();
-            Console.WriteLine("The rule are simple you stupid idiot");
-            Console.ReadLine();
-            Console.WriteLine("The rule are simple you stupid idiot");
-            Console.ReadLine();
-            Console.WriteLine("The rule are simple you stupid idiot");
-            Console.ReadLine();
+            Console.WriteLine(current.name + "'s turn");
+            current.playerShipGrid.BuildGrid();
+            Tuple<int, int> attack = current.SendAttackCords();
+            Console.WriteLine(current.name + " sent an attack to " + attack);
+            bool wasHit = other.RecieveAttack(attack);
+            current.UpdateHitMap(wasHit, attack);
+            if (gameStyle == "player")
+            {
+                UI.ChangeScreen();
+            }
 
         }
 
-        // Play against a human or computer or sim?
-
-        public void ChooseGameStyle()
-        {
-            Console.WriteLine("Do you want to play against 'comp' , 'player' , or watch 'sim'?");
-            gameStyle = Console.ReadLine();
-
+        public void ComputerTurn(Player current, Player other)
+        {    
+            Tuple<int, int> attack = current.SendAttackCords();
+            Console.WriteLine(current.name + " sent an attack to " + attack);
+            bool wasHit = other.RecieveAttack(attack);
+            current.UpdateHitMap(wasHit, attack);
         }
+
 
         public void CreatePlayers()
         {
@@ -148,9 +110,8 @@ namespace BattleShip
                     playerTwo = new Comp("Computer 2");
                     break;
             }
-
         }
-        // TOGGLE TURN
+       
 
         public void ToggleTurn()
         {
@@ -158,8 +119,7 @@ namespace BattleShip
         }
 
 
-        // build your grids
-        // Lay down your ships // Keep in bounds
+        
 
 
         public void SelectShips()
@@ -181,23 +141,7 @@ namespace BattleShip
         }
 
 
-        //Each Turn display board
-
-        // ask to guess coordinates to fire
-
-        // is hit or miss?
-
-        // retutn hit or miss
-
-        // (computer makes 'smart' calls on hits / misses
-
-        // track a 'sunken ship'
-
-        // When all ships sank show winner
-
-        // end game or start again.
-
-
+  
 
     }
 }
