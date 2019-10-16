@@ -183,7 +183,7 @@ namespace BattleShip
                 row = GetRandomNum(0,20);
                 col = GetRandomNum(0,20);           
             }
-            while ( playerHitGrid.stringGrid[row, col] != "[ ]" && playerHitGrid.stringGrid[row, col] == "[M]" && playerHitGrid.stringGrid[row, col] == "[X]");
+            while ( playerHitGrid.stringGrid[row, col] != "[ ]");
 
             return Tuple.Create(row, col);
 
@@ -207,14 +207,14 @@ namespace BattleShip
                 playerShipGrid.stringGrid[row, col] = "[X]";
                 CheckShipSink(shipID);
                 
-                
-                    
-                
+                          
                 return true;
             }
 
 
         }
+
+       
 
         public override void UpdateHitMap(bool didHit, Tuple<int, int> coords)
         {
@@ -256,35 +256,13 @@ namespace BattleShip
             lives -= 1;
 
            
-            string shipName = getShipName(input);
-            Console.Write("YOU SUNK " + name + "'s " + shipName+"!");
+            string shipName = UI.GetShipName(input);
+            Console.WriteLine("YOU SUNK " + name + "'s " + shipName+"!");
                 return true;    
         }
 
 
-        public string getShipName(string key)
-        {
-            
-            switch (key)
-            {
-                case "[D]":
-                    return "Destroyer";
-                   ;
-                case "[S]":
-                    return "Submarine";
-                    
-                case "[B]":
-                    return "BattleShip";
-                    
-                case "[A]":
-                    return "Aircraft Carrier";
-                default:
-                    return "Ship";
-
-
-            }
-            
-        }
+       
 
 
 

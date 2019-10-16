@@ -44,16 +44,6 @@ namespace BattleShip
         }
 
 
-
-
-
-        // Methodes
-
-
-           
-
-
-        // place ships
         public abstract void CreateBoard();
 
        
@@ -64,13 +54,15 @@ namespace BattleShip
 
         public abstract bool RecieveAttack(Tuple<int,int> attack);
 
-        public abstract void UpdateHitMap(bool didHit, Tuple<int,int> Cords); // SHOW hits on your hit map
+        public abstract void UpdateHitMap(bool didHit, Tuple<int,int> Cords); 
 
         public abstract bool CheckShipSink(string input);
 
-        //public abstract void UpdateShipMap(); // show opponent strikes on YOUR map
+        
+      
 
-        // make guesses
+
+        
         
 
 

@@ -73,12 +73,14 @@ namespace BattleShip
         {
             Console.WriteLine(current.name + "'s turn");
             current.playerShipGrid.BuildGrid();
+            UI.Pause();
             Tuple<int, int> attack = current.SendAttackCords();
             Console.WriteLine(current.name + " sent an attack to " + attack);
             bool wasHit = other.RecieveAttack(attack);
             string result = wasHit == true ? "hit" : "miss";
             Console.WriteLine(result.ToUpper());
             current.UpdateHitMap(wasHit, attack);
+            UI.Pause();
             if (gameStyle == "player")
             {
                 UI.ChangeScreen();
@@ -129,10 +131,15 @@ namespace BattleShip
 
         public void SelectShips()
         {
-            Console.Write(playerOne.name);
+            Console.WriteLine(playerOne.name);
             playerOne.PositionShips();
-
-            Console.Write(playerTwo.name);
+            if (gameStyle != "sim")
+            {
+                UI.Pause();
+                UI.ChangeScreen();
+            }
+            Console.Clear();
+            Console.WriteLine(playerTwo.name);
             playerTwo.PositionShips();
         }
 

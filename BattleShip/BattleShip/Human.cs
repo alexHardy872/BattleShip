@@ -311,35 +311,13 @@ namespace BattleShip
 
             lives -= 1;
        
-            string shipName = getShipName(input);
+            string shipName = UI.GetShipName(input);
             Console.WriteLine("YOU SUNK " + name + "'s " + shipName + "!");
             return true;
         }
 
 
-        public string getShipName(string key)
-        {
-
-            switch (key)
-            {
-                case "[D]":
-                    return "Destroyer";
-                    ;
-                case "[S]":
-                    return "Submarine";
-
-                case "[B]":
-                    return "BattleShip";
-
-                case "[A]":
-                    return "Aircraft Carrier";
-                default:
-                    return "Ship";
-
-
-            }
-
-        }
+      
 
 
 

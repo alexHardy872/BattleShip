@@ -10,7 +10,13 @@ namespace BattleShip
     {
 
 
+        
 
+        public static void Pause()
+        {
+            Console.WriteLine("Press ENTER to continue...");
+            Console.ReadLine();
+        }
 
 
 
@@ -38,8 +44,12 @@ namespace BattleShip
 
         public static string ChooseGameStyle()
         {
-            Console.WriteLine("Do you want to play against 'comp' , 'player' , or watch 'sim'?");
-           string gameStyle = Console.ReadLine();
+            string gameStyle = GetUserInput("Do you want to play against 'comp' , 'player' , or watch 'sim'?");
+            while (gameStyle.ToLower() != "comp" && gameStyle.ToLower() != "player" && gameStyle.ToLower() != "sim" )
+            {
+                gameStyle = RetryGetUserInput("Not a valid game style!");
+            }
+           
             return gameStyle;
 
         }
@@ -108,5 +118,29 @@ namespace BattleShip
         }
 
 
+
+        public static string GetShipName(string key)
+        {
+
+            switch (key)
+            {
+                case "[D]":
+                    return "Destroyer";
+                    ;
+                case "[S]":
+                    return "Submarine";
+
+                case "[B]":
+                    return "BattleShip";
+
+                case "[A]":
+                    return "Aircraft Carrier";
+                default:
+                    return "Ship";
+
+
+            }
+
+        }
     }
 }
