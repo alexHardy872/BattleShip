@@ -119,6 +119,7 @@ namespace BattleShip
 
         public void ToggleTurn()
         {
+            Console.Clear();
             p1Turn = !p1Turn;
         }
 

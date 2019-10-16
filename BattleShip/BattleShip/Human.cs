@@ -50,30 +50,7 @@ namespace BattleShip
                     do
                     {
                         escape = false;
-                        //bool redoCoords;
-                        //do
-                        //{
-                        //    UI.ShipInfo(ship);
-
-                        //    row = UI.IntGetUserInput("Enter the row");
-                        //    col = UI.IntGetUserInput("Enter the collum");
-
-                        //    if (row >= 19 || col >= 19 || row < 0 || col < 0)
-                        //    {
-                        //        UI.Error("This space does not exist!");
-                        //        redoCoords = true;
-                        //    }
-                        //    else if (playerShipGrid.stringGrid[row, col] != "[ ]")
-                        //    {
-                        //        UI.Error("This space is already taken!");
-                        //        redoCoords = true;
-                        //    }
-                        //    else
-                        //    {
-                        //        redoCoords = false;
-                        //    }
-                        //}
-                        //while (redoCoords == true);
+                 
                         Tuple<int,int> coords = GetRowAndCol(ship);
                          row = coords.Item1;
                          col = coords.Item2;
@@ -218,7 +195,7 @@ namespace BattleShip
                 row = UI.IntGetUserInput("Enter the row");
                 col = UI.IntGetUserInput("Enter the collum");
 
-                if (row >= 19 || col >= 19 || row < 0 || col < 0)
+                if (row > 19 || col > 19 || row < 0 || col < 0)
                 {
                     UI.Error("This space does not exist!");
                     redoCoords = true;
@@ -239,27 +216,42 @@ namespace BattleShip
             return Tuple.Create(row, col);
         }
 
+        private Tuple<int, int> GetRowAndCol()
+        {
+            bool redoCoords;
+            int row;
+            int col;
+            do
+            {
+                row = UI.IntGetUserInput("Enter the row");
+                col = UI.IntGetUserInput("Enter the collum");
+
+                if (row > 19 || col > 19 || row < 0 || col < 0)
+                {
+                    UI.Error("This space does not exist!");
+                    redoCoords = true;
+                }
+                else if (playerHitGrid.stringGrid[row, col] != "[ ]")
+                {
+                    UI.Error("You already tried sending an attack to this space!");
+                    redoCoords = true;
+                }
+                else
+                {
+                    redoCoords = false;
+                }
+            }
+            while (redoCoords == true);
+            return Tuple.Create(row, col);
+        }
+
+
         public override Tuple<int,int> SendAttackCords()
         {    
             Console.WriteLine(name + ", its time to attack! Here are your current strikes");
             playerHitGrid.BuildGrid();
-
-            int row;
-            int col;
-            
-            do
-            {
-                row = UI.IntGetUserInput("Enter the row");              
-                col = UI.IntGetUserInput("Enter the collumn");
-
-                if (row > 19 || col > 19 || row < 0 || col < 0 || playerHitGrid.stringGrid[row, col] != "[ ]")
-                {
-                    UI.Error("You have already tried this space OR it does not exist");
-                }
-            }
-            while (row > 20 || col > 20 || row < 0 || col < 0 || playerHitGrid.stringGrid[row, col] != "[ ]");
-
-            return Tuple.Create(row, col);
+            return GetRowAndCol();
+  
         }
 
 
@@ -267,7 +259,6 @@ namespace BattleShip
         {
             int row = attack.Item1;
             int col = attack.Item2;
-
             if (playerShipGrid.stringGrid[row, col] == "[ ]")
             {
                 playerShipGrid.stringGrid[row, col] = "[M]";
@@ -280,8 +271,6 @@ namespace BattleShip
                 CheckShipSink(shipID);
                 return true;
             }
-
-
         }
 
         public override void UpdateHitMap(bool didHit, Tuple<int,int> Cords)
@@ -292,12 +281,12 @@ namespace BattleShip
             if (didHit == true)
             {
                 playerHitGrid.stringGrid[row, col] = "[X]";
-                Console.WriteLine("HIT!");
+                
             }
             else
             {
                 playerHitGrid.stringGrid[row, col] = "[M]";
-                Console.WriteLine("MISS!");
+              
             }
 
             playerHitGrid.BuildGrid();

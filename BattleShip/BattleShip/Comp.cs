@@ -11,12 +11,8 @@ namespace BattleShip
         private Random rand;
         private List<string> directions;
         private bool lastMoveHit;
-        private int lastRow;
-        private int lastCol;
-        private int lastHitRow;
-        private int lastHitCol;
-        private int lastMissRow;
-        private int lastMissCol;
+      
+        private Tuple<int, int> lastHit;
 
 
 
@@ -220,22 +216,20 @@ namespace BattleShip
 
         }
 
-        public override void UpdateHitMap(bool didHit, Tuple<int, int> Cords)
+        public override void UpdateHitMap(bool didHit, Tuple<int, int> coords)
         {
-            int row = Cords.Item1;
-            int col = Cords.Item2;
+            int row = coords.Item1;
+            int col = coords.Item2;
 
             if (didHit == true)
             {
                 playerHitGrid.stringGrid[row, col] = "[X]";
-                lastHitRow = row;
-                lastHitCol = col;
+                lastHit = coords;
             }
             else
             {
                 playerHitGrid.stringGrid[row, col] = "[M]";
-                lastMissRow = row;
-                lastMissCol = col;         
+                       
             }
 
             //playerHitGrid.BuildGrid();

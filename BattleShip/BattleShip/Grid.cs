@@ -13,16 +13,12 @@ namespace BattleShip
         public List<string> letters;
 
 
-
-
-
         public Grid()
         {
 
             stringGrid = new string[20, 20];
                 
         }
-
 
 
         public void PopulateEmptyGrid()
@@ -65,7 +61,6 @@ namespace BattleShip
             }
             Console.ResetColor();
             Console.WriteLine();
-
 
 
                 for (int i = 0; i < stringGrid.GetLength(0); i++)
@@ -120,14 +115,8 @@ namespace BattleShip
                 Console.ResetColor();
                       Console.WriteLine();
                 }
-                Console.ReadLine();
+                
             }
-
-
-
-
-
-
 
 
 
