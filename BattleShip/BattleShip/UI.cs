@@ -80,6 +80,32 @@ namespace BattleShip
             return 10;
         }
 
+        public static int IntGetUserInput(string message)
+        {
+            int output;
+            string test = GetUserInput(message);
+
+            try
+            {
+                output = Int32.Parse(test);
+            }
+            catch (Exception)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Not a valid number input, please try again");
+                Console.ResetColor();
+
+                return IntGetUserInput(message);
+            }
+
+            return output;
+        }
+
+        public static void ShipInfo(Ship ship)
+        {
+            Console.WriteLine("Enter Coordinates for an open position to place your " + ship.name);
+            Console.WriteLine("( a " + ship.name + " takes up " + ship.size + " spaces)");
+        }
 
 
     }

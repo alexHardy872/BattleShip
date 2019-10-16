@@ -38,11 +38,8 @@ namespace BattleShip
 
         public override void PositionShips()
         {
-
-
             while (allShipsSet == false)
             {
-
                 foreach (Ship ship in listShips)
                 {
                     int row;
@@ -50,50 +47,41 @@ namespace BattleShip
 
                     Console.WriteLine(" Here is your Current Board");
                     playerShipGrid.BuildGrid();
-
                     do
                     {
                         escape = false;
-                        bool redoCoords;
-                        do
-                        {
-                            Console.WriteLine("Enter Coordinates for an open position to place your " + ship.name);
-                            Console.WriteLine("( a " + ship.name + " takes up " + ship.size + " spaces)");
+                        //bool redoCoords;
+                        //do
+                        //{
+                        //    UI.ShipInfo(ship);
 
-                            Console.WriteLine("Enter the row"); /// maybe use letters and number system to input D17 type deal. also validation?
+                        //    row = UI.IntGetUserInput("Enter the row");
+                        //    col = UI.IntGetUserInput("Enter the collum");
 
-
-                            row =Int32.Parse(Console.ReadLine());
-                            Console.WriteLine("Enter the collum");
-                            col = Int32.Parse(Console.ReadLine());
-
-
-                            if (row >= 19 || col >= 19 || row < 0 || col < 0)
-                            {
-                                Console.WriteLine("This space does not exist!");
-                                redoCoords = true;
-
-                            }
-                            else if (playerShipGrid.stringGrid[row, col] != "[ ]")
-                            {
-                                Console.WriteLine("This space is already taken");
-                                redoCoords = true;
-                            }
-                            else
-                            {
-                                redoCoords = false;
-                            }
-                        }
-                        while (redoCoords == true);
-
+                        //    if (row >= 19 || col >= 19 || row < 0 || col < 0)
+                        //    {
+                        //        UI.Error("This space does not exist!");
+                        //        redoCoords = true;
+                        //    }
+                        //    else if (playerShipGrid.stringGrid[row, col] != "[ ]")
+                        //    {
+                        //        UI.Error("This space is already taken!");
+                        //        redoCoords = true;
+                        //    }
+                        //    else
+                        //    {
+                        //        redoCoords = false;
+                        //    }
+                        //}
+                        //while (redoCoords == true);
+                        Tuple<int,int> coords = GetRowAndCol(ship);
+                         row = coords.Item1;
+                         col = coords.Item2;
 
                         bool successfulPlacement;
-
-
                         do
                         {
                             string direction = GetDirection(row, col);
-
                             successfulPlacement = PlaceShip(row, col, ship, direction);
                         }
                         while (successfulPlacement == false && escape == false);
@@ -109,194 +97,169 @@ namespace BattleShip
 
         }
 
+    
 
-        public string GetDirection(int row, int col)
+
+        private string GetDirection(int row, int col)
         {
-            // CHOOSE UP, DOWN, RIGHT, OR LEFT
-            string direction;
-            do
-            {
-                Console.WriteLine("Starting from point (" + (row)+ ", " + (col) + ") In what direction would you like to extend your ship? (Type 'right', 'left', 'up' or 'down') or 'back' to try new coordinates");
-                direction = Console.ReadLine();
-
-                if (direction != "up" && direction != "down" && direction != "right" && direction != "left" && direction != "back")
-                {
-      
-                    
-                    UI.Error("Not a valid direction! Try again!");
-                }
-
+            string message = "Starting from point (" + (row) + ", " + (col) + ") " +
+                            "In what direction would you like to extend your ship? (Type 'right', 'left', 'up' or 'down') or 'back' to try new coordinates";
+            string direction = UI.GetUserInput(message);
+            while (direction != "up" && direction != "down" && direction != "right" && direction != "left" && direction != "back") 
+            {  
+               UI.RetryGetUserInput("Not a valid direction! Try again!");      
             }
-            while (direction != "up" && direction != "down" && direction != "right" && direction != "left" && direction != "back");
-
             return direction;
-            // Now will need to validate direction and revalidate OR use it // 
 
         }
 
-        public bool PlaceShip(int row, int col, Ship ship, string direction) // return bool if succedful or not for validation
+      
+
+        private bool PlaceShip(int row, int col, Ship ship, string direction)
+        {
+            bool checkBoundries = QuickCheckBounds(row, col, ship, direction) == false ? false : true;
+            if (checkBoundries == false)
+            {
+                UI.Error("Not enough room to fit this" + ship.name + " " + ship.size + " spaces " + direction + " of (" + (row) + ", " + (col));
+                return false;
+            }
+            else
+            {
+                for (int i = 1; i < ship.size; i++)
+                {
+                    bool checkForShips = QuickCheckEmpty(row, col, i, ship, direction) == false ? false : true;
+                    if (checkForShips == false)
+                    {
+                        UI.Error("Not enough room to fit this" + ship.name + " " + ship.size + " spaces " + direction + " of (" + (row) + ", " + (col));
+                        return false;
+                    }
+                }
+                for (int i = 1; i < ship.size; i++)
+                {
+                    NextPosition(row, col, i, ship, direction);
+                }
+
+                playerShipGrid.stringGrid[row, col] = ship.key;
+            }
+            return true;
+        }
+
+        private void NextPosition(int row, int col, int i, Ship ship, string direction)
         {
             switch (direction)
             {
                 case "down":
-                    if (row + ship.size > playerShipGrid.stringGrid.GetLength(0))
-                    {
-                       UI.Error("Not enough room to fit this" + ship.name + " " + ship.size + " spaces " + direction + " of (" + (row) + ", " + (col));
-                        return false;
-                    }
-                    else
-                    {
-
-                        //CHECK SHIP SIZE
-                        for (int i = 1; i < ship.size; i++)
-                        {
-
-                            if (playerShipGrid.stringGrid[row + i, col] != "[ ]")
-                            {
-                                UI.Error("Not enough room to fit this" + ship.name + " " + ship.size + " spaces " + direction + " of (" + (row) + ", " + (col));
-                                return false;
-                            }
-                        }
-
-
-                        for (int i = 1; i < ship.size; i++)
-                        {
-                          
-                                playerShipGrid.stringGrid[row + i, col] = ship.key;
-                                                   
-                        }
-                        playerShipGrid.stringGrid[row, col] = ship.key;
-                    }
+                    playerShipGrid.stringGrid[row + i, col] = ship.key;
                     break;
-
                 case "up":
-                    if (row - ship.size < -1)
-                    {
-                        UI.Error("Not enough room to fit this" + ship.name + " " + ship.size + " spaces " + direction + " of (" + (row) + ", " + (col));
-                        return false;
-                    }
-                    else
-                    {
-                        //CHECK SHIP SIZE
-                        for (int i = 1; i < ship.size; i++)
-                        {
-
-                            if (playerShipGrid.stringGrid[row - i, col] != "[ ]")
-                            {
-                                UI.Error("Not enough room to fit this" + ship.name + " " + ship.size + " spaces " + direction + " of (" + (row) + ", " + (col));
-                                return false;
-                            }
-                        }
-
-                        for (int i = 1; i < ship.size; i++)
-                        {
-                           
-                                playerShipGrid.stringGrid[row - i, col] = ship.key;
-
-                            
-
-                        }
-                        playerShipGrid.stringGrid[row, col] = ship.key;
-                    }
+                    playerShipGrid.stringGrid[row - i, col] = ship.key;
                     break;
                 case "right":
-                    if (col + ship.size > playerShipGrid.stringGrid.GetLength(1))
-                    {
-                        UI.Error("Not enough room to fit this" + ship.name + " " + ship.size + " spaces " + direction + " of (" + (row) + ", " + (col));
-                        return false;
-                    }
-                    else
-                    {
-                        //CHECK SHIP SIZE
-                        for (int i = 1; i < ship.size; i++)
-                        {
-
-                            if (playerShipGrid.stringGrid[row, col+i] != "[ ]")
-                            {
-                                UI.Error("Not enough room to fit this" + ship.name + " " + ship.size + " spaces " + direction + " of (" + (row) + ", " + (col));
-                                return false;
-                            }
-                        }
-
-                        for (int i = 1; i < ship.size ; i++)
-                        {                        
-                                playerShipGrid.stringGrid[row, col+i] = ship.key;
-                       
-                       }
-                        playerShipGrid.stringGrid[row, col] = ship.key;
-                    }
+                    playerShipGrid.stringGrid[row, col + i] = ship.key;
                     break;
                 case "left":
-                    if (col - ship.size < -1)
-                    {
-                        UI.Error("Not enough room to fit this" + ship.name + " " + ship.size + " spaces " + direction + " of (" + (row) + ", " + (col));
-                        return false;
-                    }
-                    else
-                    {
-                        //CHECK SHIP SIZE
-                        for (int i = 1; i < ship.size; i++)
-                        {
-                            if (playerShipGrid.stringGrid[row, col-i] != "[ ]")
-                            {
-                                UI.Error("Not enough room to fit this" + ship.name + " " + ship.size + " spaces " + direction + " of (" + (row) + ", " + (col));
-                                return false;
-                            }
-                        }
-
-                        for (int i = 1; i < ship.size ; i++)
-                        {  
-                                playerShipGrid.stringGrid[row, col - i] = ship.key;
-                        }
-                        playerShipGrid.stringGrid[row, col] = ship.key;
-                    }
-                    break;
-                case "back":
-                    escape = true;
+                    playerShipGrid.stringGrid[row, col - i] = ship.key;
                     break;
             }
 
-            return true;
         }
 
+        private bool QuickCheckBounds(int row, int col, Ship ship, string direction)
+        {
+            bool success;
+            switch (direction)
+            {
+                case "down":
+                    success = row + ship.size >= playerShipGrid.stringGrid.GetLength(0) ? false : true;
+                    return success;
+                case "up":
+                    success = row - ship.size < 0 ? false : true;
+                    return success;
+                case "right":
+                    success = col + ship.size >= playerShipGrid.stringGrid.GetLength(1) ? false : true;
+                    return success;
+                case "left":
+                    success = col - ship.size < 0 ? false : true;
+                    return success;
+            }
+            return false;
+        }
+
+        private bool QuickCheckEmpty(int row, int col, int i, Ship ship, string direction)
+        {
+            bool success;
+            switch (direction)
+            {
+                case "down":
+                    success = playerShipGrid.stringGrid[row + i, col] != "[ ]" ? false : true;
+                    return success;
+                case "up":
+                    success = playerShipGrid.stringGrid[row - i, col] != "[ ]" ? false : true;
+                    return success;
+                case "right":
+                    success = playerShipGrid.stringGrid[row, col + i] != "[ ]" ? false : true;
+                    return success;
+                case "left":
+                    success = playerShipGrid.stringGrid[row, col - i] != "[ ]" ? false : true;
+                    return success;
+            }
+            return false;
+        }
+
+        private Tuple<int,int> GetRowAndCol(Ship ship)
+        {
+            bool redoCoords;
+            int row;
+            int col;
+            do
+            {
+                UI.ShipInfo(ship);
+
+                row = UI.IntGetUserInput("Enter the row");
+                col = UI.IntGetUserInput("Enter the collum");
+
+                if (row >= 19 || col >= 19 || row < 0 || col < 0)
+                {
+                    UI.Error("This space does not exist!");
+                    redoCoords = true;
+                }
+                else if (playerShipGrid.stringGrid[row, col] != "[ ]")
+                {
+                    UI.Error("This space is already taken!");
+                    redoCoords = true;
+                }
+                else
+                {
+                    redoCoords = false;
+                }
+            }
+            while (redoCoords == true);
 
 
+            return Tuple.Create(row, col);
+        }
 
         public override Tuple<int,int> SendAttackCords()
-        {
-            
-
+        {    
             Console.WriteLine(name + ", its time to attack! Here are your current strikes");
             playerHitGrid.BuildGrid();
 
             int row;
             int col;
-
+            
             do
             {
-         
-                Console.WriteLine("Enter the row"); /// maybe use letters and number system to input D17 type deal. also validation?
+                row = UI.IntGetUserInput("Enter the row");              
+                col = UI.IntGetUserInput("Enter the collumn");
 
-                row = (Int32.Parse(Console.ReadLine()) - 1);
-                Console.WriteLine("Enter the collum");
-                col = (Int32.Parse(Console.ReadLine()) - 1);
-
-
-                if (row > 20 || col > 20 || row < 0 || col < 0 || playerHitGrid.stringGrid[row, col] != "[ ]")
+                if (row > 19 || col > 19 || row < 0 || col < 0 || playerHitGrid.stringGrid[row, col] != "[ ]")
                 {
-                    Console.WriteLine("This space is already taken or does not exist!");
+                    UI.Error("You have already tried this space OR it does not exist");
                 }
             }
             while (row > 20 || col > 20 || row < 0 || col < 0 || playerHitGrid.stringGrid[row, col] != "[ ]");
 
-            if (playerHitGrid.stringGrid[row,col] == "[M]" || playerHitGrid.stringGrid[row, col] == "[X]")
-            {
-                Console.WriteLine("You have already tried this space!");
-                return SendAttackCords();
-            }
-
             return Tuple.Create(row, col);
-
         }
 
 

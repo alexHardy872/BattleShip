@@ -76,6 +76,8 @@ namespace BattleShip
             Tuple<int, int> attack = current.SendAttackCords();
             Console.WriteLine(current.name + " sent an attack to " + attack);
             bool wasHit = other.RecieveAttack(attack);
+            string result = wasHit == true ? "hit" : "miss";
+            Console.WriteLine(result.ToUpper());
             current.UpdateHitMap(wasHit, attack);
             if (gameStyle == "player")
             {
@@ -89,6 +91,8 @@ namespace BattleShip
             Tuple<int, int> attack = current.SendAttackCords();
             Console.WriteLine(current.name + " sent an attack to " + attack);
             bool wasHit = other.RecieveAttack(attack);
+            string result = wasHit == true ? "hit" : "miss";
+            Console.WriteLine(result.ToUpper());
             current.UpdateHitMap(wasHit, attack);
         }
 
