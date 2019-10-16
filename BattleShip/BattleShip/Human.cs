@@ -312,7 +312,7 @@ namespace BattleShip
             lives -= 1;
        
             string shipName = UI.GetShipName(input);
-            Console.WriteLine("YOU SUNK " + name + "'s " + shipName + "!");
+            UI.Important("YOU SUNK " + name + "'s " + shipName + "!");
             return true;
         }
 

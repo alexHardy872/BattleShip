@@ -142,5 +142,13 @@ namespace BattleShip
             }
 
         }
+
+        public static void Important(string message)
+        {
+            Console.BackgroundColor = ConsoleColor.Yellow;
+            Console.WriteLine(message);
+            Console.ResetColor();
+
+        }
     }
 }
