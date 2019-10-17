@@ -79,7 +79,9 @@ namespace BattleShip
 
         private bool PlaceShip(int row, int col, Ship ship, string direction)
         {
-            bool checkBoundries = QuickCheckBounds(row, col, ship, direction) == false ? false : true;
+            // bool checkBoundries = QuickCheckBounds(row, col, ship, direction) == false ? false : true;
+             bool checkBoundries = ShipValidations.QuickCheckBounds(row, col, ship, direction, playerShipGrid.BoardSize) == false ? false : true;
+
             if (checkBoundries == false)
             {
                 return false;
@@ -88,7 +90,8 @@ namespace BattleShip
             {
                 for (int i = 1; i < ship.size; i++)
                 {
-                    bool checkForShips = QuickCheckEmpty(row, col, i, ship, direction) == false ? false : true;
+                    // bool checkForShips = QuickCheckEmpty(row, col, i, ship, direction) == false ? false : true;
+                    bool checkForShips = ShipValidations.QuickCheckEmpty(row, col, i, ship, direction, playerShipGrid.stringGrid) == false ? false : true;
                     if (checkForShips == false)
                     { 
                         return false;
@@ -96,7 +99,8 @@ namespace BattleShip
                 }
                 for (int i = 1; i < ship.size; i++)
                 {
-                    NextPosition(row, col, i, ship, direction);
+                    //NextPosition(row, col, i, ship, direction);
+                    ShipValidations.NextPosition(row, col, i, ship, direction, playerShipGrid.stringGrid);
                 }
 
                 playerShipGrid.stringGrid[row, col] = ship.key;

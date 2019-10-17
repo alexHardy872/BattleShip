@@ -40,6 +40,7 @@
     <Compile Include="Comp.cs" />
     <Compile Include="Ship.cs" />
     <Compile Include="Destroyer.cs" />
+    <Compile Include="ShipValidations.cs" />
     <Compile Include="Submarine.cs" />
     <Compile Include="Battleship.cs" />
     <Compile Include="AircraftCarrier.cs" />

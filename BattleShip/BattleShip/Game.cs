@@ -156,7 +156,7 @@ namespace BattleShip
 
         public void BuildPlayerGrids()
         {
-            int size = UI.IntGetUserInput("What Size Board would you like to play with?");
+            int size = UI.Limiter(UI.IntGetUserInput("What Size Board would you like to play with (min 10, max 30) ?"), 10, 30);
             
             CreateBoards(playerOne, size);
             CreateBoards(playerTwo, size);

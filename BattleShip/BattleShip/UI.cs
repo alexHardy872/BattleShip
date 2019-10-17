@@ -112,6 +112,22 @@ namespace BattleShip
             return output;
         }
 
+        public static int Limiter(int input, int min, int max)
+        {
+            if (min <= input && input <= max)
+            {
+                return input
+            }
+            else if (input < min)
+            {
+                return 10;
+            }
+            else
+            {
+                return 30;
+            }
+        }
+
         public static void ShipInfo(Ship ship)
         {
             Console.WriteLine("Enter Coordinates for an open position to place your " + ship.name);
