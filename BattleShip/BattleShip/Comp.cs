@@ -79,7 +79,6 @@ namespace BattleShip
 
         private bool PlaceShip(int row, int col, Ship ship, string direction)
         {
-            // bool checkBoundries = QuickCheckBounds(row, col, ship, direction) == false ? false : true;
              bool checkBoundries = ShipValidations.QuickCheckBounds(row, col, ship, direction, playerShipGrid.BoardSize) == false ? false : true;
 
             if (checkBoundries == false)
@@ -90,7 +89,6 @@ namespace BattleShip
             {
                 for (int i = 1; i < ship.size; i++)
                 {
-                    // bool checkForShips = QuickCheckEmpty(row, col, i, ship, direction) == false ? false : true;
                     bool checkForShips = ShipValidations.QuickCheckEmpty(row, col, i, ship, direction, playerShipGrid.stringGrid) == false ? false : true;
                     if (checkForShips == false)
                     { 
@@ -99,7 +97,6 @@ namespace BattleShip
                 }
                 for (int i = 1; i < ship.size; i++)
                 {
-                    //NextPosition(row, col, i, ship, direction);
                     ShipValidations.NextPosition(row, col, i, ship, direction, playerShipGrid.stringGrid);
                 }
 
@@ -108,67 +105,6 @@ namespace BattleShip
             return true;
         }
 
-        private void NextPosition(int row, int col, int i, Ship ship, string direction)
-        {
-            switch (direction)
-            {
-                case "down":
-                    playerShipGrid.stringGrid[row + i, col] = ship.key;
-                    break;
-                case "up":
-                    playerShipGrid.stringGrid[row - i, col] = ship.key;
-                    break;
-                case "right":
-                    playerShipGrid.stringGrid[row, col + i] = ship.key;
-                    break;
-                case "left":
-                    playerShipGrid.stringGrid[row, col - i] = ship.key;
-                    break;
-            }
-            
-        }
-
-        private bool QuickCheckBounds(int row, int col, Ship ship, string direction)
-        {
-            bool success;
-            switch(direction)
-            {
-                case "down":
-                     success = row + ship.size >= playerShipGrid.BoardSize ? false : true;
-                    return success; 
-                case "up":
-                     success = row - ship.size < 0 ? false : true;
-                    return success;                 
-                case "right":
-                    success = col + ship.size >= playerShipGrid.BoardSize ? false : true;
-                    return success;               
-                case "left":
-                    success = col - ship.size < 0 ? false : true;
-                    return success;             
-            }
-            return false;
-        }
-
-        private bool QuickCheckEmpty(int row, int col, int i , Ship ship, string direction)
-        {
-            bool success;
-            switch (direction)
-            {
-                case "down":
-                    success = playerShipGrid.stringGrid[row + i, col] != "[ ]" ? false : true;
-                    return success;
-                case "up":
-                    success = playerShipGrid.stringGrid[row - i, col] != "[ ]" ? false : true;
-                    return success;
-                case "right":
-                    success =  playerShipGrid.stringGrid[row, col + i] != "[ ]" ? false : true;
-                    return success;
-                case "left":
-                    success = playerShipGrid.stringGrid[row, col - i] != "[ ]" ? false : true;
-                    return success;
-            }
-            return false;
-        }
 
 
         public override Tuple<int, int> SendAttackCords()

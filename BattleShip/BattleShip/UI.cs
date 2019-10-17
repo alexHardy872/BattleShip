@@ -116,7 +116,7 @@ namespace BattleShip
         {
             if (min <= input && input <= max)
             {
-                return input
+                return input;
             }
             else if (input < min)
             {
