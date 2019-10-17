@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace BattleShip
 {
@@ -150,6 +151,33 @@ namespace BattleShip
             Console.WriteLine(message);
             Console.ResetColor();
 
+        }
+
+        public static bool  PlayAgain()
+        {
+           string input =  GetUserInput("Play Again? (Y/N)");
+            while (input.ToUpper() != "Y" && input.ToUpper() != "N")
+            {
+                input = RetryGetUserInput("Must Type (Y/N)!");
+            }
+
+            if (input == "Y")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+
+        }
+
+        public static void Exit()
+        {
+            Console.WriteLine("Thanks for playing!");
+            Thread.Sleep(1000);
+            Environment.Exit(0);
         }
     }
 }

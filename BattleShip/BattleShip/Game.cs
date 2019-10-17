@@ -11,9 +11,9 @@ namespace BattleShip
         //MEMBER VAR
         public Player playerOne;
         public Player playerTwo;
-        public string gameStyle;
-        public bool p1Turn;
-        public bool playAgain;
+        private string gameStyle;
+        private bool p1Turn;
+        private bool playAgain;
      
 
 
@@ -31,9 +31,9 @@ namespace BattleShip
 
         public void MasterGameFunction()
         {
+            UI.WelcomeToBattleShip();
             do
-            {
-                UI.WelcomeToBattleShip();
+            {            
                 gameStyle = UI.ChooseGameStyle(); 
                 CreatePlayers(); 
                 BuildPlayerGrids();
@@ -41,8 +41,11 @@ namespace BattleShip
                 PlayGame();   
                 Player winner = playerOne.lives == 0 ? playerTwo : playerOne;         
                 Console.WriteLine(winner.name + " is the winner! all ships sunk!");
+                playAgain = UI.PlayAgain();
             }
             while (playAgain == true);
+
+            UI.Exit();
         }
 
         public void PlayGame()
