@@ -141,6 +141,12 @@ namespace BattleShip
             Console.Clear();
             Console.WriteLine(playerTwo.name);
             playerTwo.PositionShips();
+
+            if (gameStyle == "player")
+            {
+                UI.Pause();
+                UI.ChangeScreen();
+            }
         }
 
         public void BuildPlayerGrids()

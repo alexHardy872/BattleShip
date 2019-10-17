@@ -84,7 +84,7 @@ namespace BattleShip
             string direction = UI.GetUserInput(message);
             while (direction != "up" && direction != "down" && direction != "right" && direction != "left" && direction != "back") 
             {  
-               UI.RetryGetUserInput("Not a valid direction! Try again!");      
+               direction = UI.RetryGetUserInput("Not a valid direction! Try again!");      
             }
             return direction;
 

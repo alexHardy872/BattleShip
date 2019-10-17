@@ -146,6 +146,7 @@ namespace BattleShip
         public static void Important(string message)
         {
             Console.BackgroundColor = ConsoleColor.Yellow;
+            Console.ForegroundColor = ConsoleColor.Black;
             Console.WriteLine(message);
             Console.ResetColor();
 
