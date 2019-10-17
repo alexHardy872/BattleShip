@@ -14,10 +14,6 @@ namespace BattleShip
       
         private Tuple<int, int> lastHit;
 
-
-
-
-
         public Comp(string nameIn)
        
         {
@@ -26,10 +22,6 @@ namespace BattleShip
             directions = new List<string>() { "up", "down", "right", "left" };
             
         }
-
-
-
-
 
         public override void PositionShips()
         {
@@ -60,17 +52,13 @@ namespace BattleShip
             }
         }
 
-
-
         private string GetRandomDirection()
         {
             int random = GetRandomNum(0,directions.Count);
             string direction = directions[random];
             return direction;
         }
-
-        
-
+   
         private int GetRandomNum(int min, int max)
         {
            int number =  rand.Next(min, max);   
@@ -80,7 +68,6 @@ namespace BattleShip
         private bool PlaceShip(int row, int col, Ship ship, string direction)
         {
              bool checkBoundries = ShipValidations.QuickCheckBounds(row, col, ship, direction, playerShipGrid.BoardSize) == false ? false : true;
-
             if (checkBoundries == false)
             {
                 return false;
@@ -105,8 +92,6 @@ namespace BattleShip
             return true;
         }
 
-
-
         public override Tuple<int, int> SendAttackCords()
         {
             int row;
@@ -122,8 +107,6 @@ namespace BattleShip
             return Tuple.Create(row, col);
 
         }
-
-
 
         public override bool RecieveAttack(Tuple<int, int> attack)
         {
@@ -148,8 +131,6 @@ namespace BattleShip
 
         }
 
-       
-
         public override void UpdateHitMap(bool didHit, Tuple<int, int> coords)
         {
             int row = coords.Item1;
@@ -168,7 +149,6 @@ namespace BattleShip
 
             //playerHitGrid.BuildGrid();
         }
-
 
         public override bool CheckShipSink(string input)
         {

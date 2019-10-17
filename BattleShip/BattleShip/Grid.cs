@@ -8,7 +8,6 @@ namespace BattleShip
 {
     public class Grid
     {
-
         public string[,] stringGrid;
         public List<string> letters;
         private int boardSize;
@@ -24,9 +23,7 @@ namespace BattleShip
         public Grid(int gridSize)
         {
             boardSize = gridSize;
-            stringGrid = new string[boardSize, boardSize];
-            
-                
+            stringGrid = new string[boardSize, boardSize];             
         }
 
 
@@ -40,8 +37,6 @@ namespace BattleShip
                 } 
             }            
         }
-
-
 
         public void BuildGrid()
 
@@ -126,8 +121,6 @@ namespace BattleShip
                 }
                 
             }
-
-
 
 
         }

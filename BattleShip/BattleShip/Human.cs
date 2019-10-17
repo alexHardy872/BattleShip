@@ -21,12 +21,6 @@ namespace BattleShip
 
 
 
-
-
-      
-
-
-
         public override void PositionShips()
         {
             while (allShipsSet == false)
@@ -86,7 +80,6 @@ namespace BattleShip
         private bool PlaceShip(int row, int col, Ship ship, string direction)
         {
             bool checkBoundries = ShipValidations.QuickCheckBounds(row, col, ship, direction, playerShipGrid.BoardSize) == false ? false : true;
-
             if (checkBoundries == false)
             {
                 UI.Error("Not enough room to fit this" + ship.name + " " + ship.size + " spaces " + direction + " of (" + (row) + ", " + (col));
@@ -97,7 +90,6 @@ namespace BattleShip
                 for (int i = 1; i < ship.size; i++)
                 {
                     bool checkForShips = ShipValidations.QuickCheckEmpty(row, col, i, ship, direction, playerShipGrid.stringGrid) == false ? false : true;
-
                     if (checkForShips == false)
                     {
                         UI.Error("Not enough room to fit this" + ship.name + " " + ship.size + " spaces " + direction + " of (" + (row) + ", " + (col));
@@ -105,10 +97,8 @@ namespace BattleShip
                     }
                 }
                 for (int i = 1; i < ship.size; i++)
-                {
-                    
+                {        
                     ShipValidations.NextPosition(row, col, i, ship, direction, playerShipGrid.stringGrid);
-
                 }
 
                 playerShipGrid.stringGrid[row, col] = ship.key;

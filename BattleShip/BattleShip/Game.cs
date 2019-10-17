@@ -8,27 +8,18 @@ namespace BattleShip
 {
     public class Game
     {
-        //MEMBER VAR
         public Player playerOne;
         public Player playerTwo;
         private string gameStyle;
         private bool p1Turn;
         private bool playAgain;
-        
-     
 
-
-
-        //CONSTRUCTOR
         public Game()
         {
             p1Turn = true;
             
         }
 
-
-
-        //MEMBER METHODES
 
         public void MasterGameFunction()
         {
@@ -89,7 +80,6 @@ namespace BattleShip
             {
                 UI.ChangeScreen();
             }
-
         }
 
         public void ComputerTurn(Player current, Player other)
@@ -102,7 +92,6 @@ namespace BattleShip
             current.UpdateHitMap(wasHit, attack);
             UI.Pause();
         }
-
 
         public void CreatePlayers()
         {
@@ -123,16 +112,11 @@ namespace BattleShip
             }
         }
        
-
         public void ToggleTurn()
         {
             Console.Clear();
             p1Turn = !p1Turn;
         }
-
-
-        
-
 
         public void SelectShips()
         {
