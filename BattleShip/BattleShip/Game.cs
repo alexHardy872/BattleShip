@@ -138,7 +138,7 @@ namespace BattleShip
         {
             Console.WriteLine(playerOne.name);
             playerOne.PositionShips();
-            if (gameStyle != "sim")
+            if (gameStyle == "player")
             {
                 UI.Pause();
                 UI.ChangeScreen();
