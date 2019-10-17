@@ -11,12 +11,21 @@ namespace BattleShip
 
         public string[,] stringGrid;
         public List<string> letters;
-
-
-        public Grid()
+        private int boardSize;
+        public int BoardSize
         {
+            get
+            {
+                return boardSize;
+            }
+        }
 
-            stringGrid = new string[20, 20];
+
+        public Grid(int gridSize)
+        {
+            boardSize = gridSize;
+            stringGrid = new string[boardSize, boardSize];
+            
                 
         }
 

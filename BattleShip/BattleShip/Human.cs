@@ -23,16 +23,7 @@ namespace BattleShip
 
 
 
-        public override void CreateBoard()
-        {
-            // MAKE BOARDS
-
-            playerShipGrid = new Grid();
-            playerShipGrid.PopulateEmptyGrid();
-
-            playerHitGrid = new Grid();
-            playerHitGrid.PopulateEmptyGrid();
-        }
+      
 
 
 
@@ -104,7 +95,7 @@ namespace BattleShip
             {
                 for (int i = 1; i < ship.size; i++)
                 {
-                    bool checkForShips = QuickCheckEmpty(row, col, i, ship, direction) == false ? false : true;
+                    bool checkForShips = QuickCheckEmpty(row, col, i,  direction) == false ? false : true;
                     if (checkForShips == false)
                     {
                         UI.Error("Not enough room to fit this" + ship.name + " " + ship.size + " spaces " + direction + " of (" + (row) + ", " + (col));
@@ -147,13 +138,13 @@ namespace BattleShip
             switch (direction)
             {
                 case "down":
-                    success = row + ship.size >= playerShipGrid.stringGrid.GetLength(0) ? false : true;
+                    success = row + ship.size >= playerShipGrid.BoardSize ? false : true;
                     return success;
                 case "up":
                     success = row - ship.size < 0 ? false : true;
                     return success;
                 case "right":
-                    success = col + ship.size >= playerShipGrid.stringGrid.GetLength(1) ? false : true;
+                    success = col + ship.size >= playerShipGrid.BoardSize ? false : true;
                     return success;
                 case "left":
                     success = col - ship.size < 0 ? false : true;
@@ -162,7 +153,7 @@ namespace BattleShip
             return false;
         }
 
-        private bool QuickCheckEmpty(int row, int col, int i, Ship ship, string direction)
+        private bool QuickCheckEmpty(int row, int col, int i, string direction)
         {
             bool success;
             switch (direction)
@@ -195,7 +186,7 @@ namespace BattleShip
                 row = UI.IntGetUserInput("Enter the row");
                 col = UI.IntGetUserInput("Enter the collum");
 
-                if (row > 19 || col > 19 || row < 0 || col < 0)
+                if (row >= playerShipGrid.BoardSize || col >= playerShipGrid.BoardSize || row < 0 || col < 0)
                 {
                     UI.Error("This space does not exist!");
                     redoCoords = true;
@@ -226,7 +217,7 @@ namespace BattleShip
                 row = UI.IntGetUserInput("Enter the row");
                 col = UI.IntGetUserInput("Enter the collum");
 
-                if (row > 19 || col > 19 || row < 0 || col < 0)
+                if (row >= playerShipGrid.BoardSize || col >= playerShipGrid.BoardSize || row < 0 || col < 0)
                 {
                     UI.Error("This space does not exist!");
                     redoCoords = true;
@@ -297,9 +288,9 @@ namespace BattleShip
 
         public override bool CheckShipSink(string input)
         {
-            for (int i = 0; i < playerShipGrid.stringGrid.GetLength(0); i++)
+            for (int i = 0; i < playerShipGrid.BoardSize; i++)
             {
-                for (int j = 0; j < playerShipGrid.stringGrid.GetLength(1); j++)
+                for (int j = 0; j < playerShipGrid.BoardSize; j++)
                 {
                     if (playerShipGrid.stringGrid[i, j] == input)
                     {

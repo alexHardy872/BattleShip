@@ -14,6 +14,7 @@ namespace BattleShip
         private string gameStyle;
         private bool p1Turn;
         private bool playAgain;
+        
      
 
 
@@ -97,8 +98,9 @@ namespace BattleShip
             Console.WriteLine(current.name + " sent an attack to " + attack);
             bool wasHit = other.RecieveAttack(attack);
             string result = wasHit == true ? "hit" : "miss";
-            Console.WriteLine(result.ToUpper());
+            Console.WriteLine(result.ToUpper());          
             current.UpdateHitMap(wasHit, attack);
+            UI.Pause();
         }
 
 
@@ -154,15 +156,25 @@ namespace BattleShip
 
         public void BuildPlayerGrids()
         {
-            playerOne.CreateBoard();
-            playerOne.CreateBoard();
+            int size = UI.IntGetUserInput("What Size Board would you like to play with?");
+            
+            CreateBoards(playerOne, size);
+            CreateBoards(playerTwo, size);
+        }
 
-            playerTwo.CreateBoard();
-            playerTwo.CreateBoard();
+        public static void CreateBoards(Player player, int size)
+        {
+            // MAKE BOARDS
+
+            player.playerShipGrid = new Grid(size);
+            player.playerShipGrid.PopulateEmptyGrid();
+
+            player.playerHitGrid = new Grid(size);
+            player.playerHitGrid.PopulateEmptyGrid();
         }
 
 
-  
+
 
     }
 }

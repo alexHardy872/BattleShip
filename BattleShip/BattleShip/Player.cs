@@ -44,7 +44,7 @@ namespace BattleShip
         }
 
 
-        public abstract void CreateBoard();
+
 
        
 

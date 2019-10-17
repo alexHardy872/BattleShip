@@ -28,13 +28,7 @@ namespace BattleShip
         }
 
 
-        public override void CreateBoard()
-        {
-            playerShipGrid = new Grid();
-            playerShipGrid.PopulateEmptyGrid();
-            playerHitGrid = new Grid();
-            playerHitGrid.PopulateEmptyGrid();
-        }
+
 
 
         public override void PositionShips()
@@ -48,8 +42,8 @@ namespace BattleShip
                     int col;
                     do
                     {
-                        row = GetRandomNum(0,20);
-                        col = GetRandomNum(0,20);
+                        row = GetRandomNum(0, playerShipGrid.BoardSize);
+                        col = GetRandomNum(0, playerShipGrid.BoardSize);
                     }
                     while (playerShipGrid.stringGrid[row, col] != "[ ]");
                     bool successfulPlacement;
@@ -70,7 +64,7 @@ namespace BattleShip
 
         private string GetRandomDirection()
         {
-            int random = GetRandomNum(0,4);
+            int random = GetRandomNum(0,directions.Count);
             string direction = directions[random];
             return direction;
         }
@@ -136,13 +130,13 @@ namespace BattleShip
             switch(direction)
             {
                 case "down":
-                     success = row + ship.size >= playerShipGrid.stringGrid.GetLength(0) ? false : true;
+                     success = row + ship.size >= playerShipGrid.BoardSize ? false : true;
                     return success; 
                 case "up":
                      success = row - ship.size < 0 ? false : true;
                     return success;                 
                 case "right":
-                    success = col + ship.size >= playerShipGrid.stringGrid.GetLength(1) ? false : true;
+                    success = col + ship.size >= playerShipGrid.BoardSize ? false : true;
                     return success;               
                 case "left":
                     success = col - ship.size < 0 ? false : true;
@@ -180,8 +174,8 @@ namespace BattleShip
 
             do
             {
-                row = GetRandomNum(0,20);
-                col = GetRandomNum(0,20);           
+                row = GetRandomNum(0, playerShipGrid.BoardSize);
+                col = GetRandomNum(0, playerShipGrid.BoardSize);           
             }
             while ( playerHitGrid.stringGrid[row, col] != "[ ]");
 
@@ -239,9 +233,9 @@ namespace BattleShip
         public override bool CheckShipSink(string input)
         {
 
-            for ( int i = 0; i < playerShipGrid.stringGrid.GetLength(0); i++)
+            for ( int i = 0; i < playerShipGrid.BoardSize; i++)
             {
-                for ( int j = 0; j < playerShipGrid.stringGrid.GetLength(1);  j++)
+                for ( int j = 0; j < playerShipGrid.BoardSize;  j++)
                 {
                     if (playerShipGrid.stringGrid[i,j] == input)
                     {
@@ -257,7 +251,7 @@ namespace BattleShip
 
            
             string shipName = UI.GetShipName(input);
-            Console.WriteLine("YOU SUNK " + name + "'s " + shipName+"!");
+            UI.Important("YOU SUNK " + name + "'s " + shipName+"!");
                 return true;    
         }
 
